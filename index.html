@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IT Commodity — российское IT-оборудование и решения</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Geologica:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0d;
+      --bg2: #111114;
+      --accent: #00c8ff;
+      --accent2: #0090bb;
+      --white: #ffffff;
+      --gray: #6b6b7a;
+      --gray2: #1a1a22;
+      --gray3: #22222c;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body: 'Geologica', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* CURSOR */
+    .cursor {
+      position: fixed;
+      width: 10px; height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.15s ease, opacity 0.2s;
+      transform: translate(-50%, -50%);
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 36px; height: 36px;
+      border: 1px solid rgba(0,200,255,0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transition: transform 0.35s ease, width 0.3s, height 0.3s, opacity 0.2s;
+      transform: translate(-50%, -50%);
+    }
+    body:hover .cursor { opacity: 1; }
+
+    /* NOISE OVERLAY */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.35;
+    }
+
+    /* HEADER */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 60px;
+      backdrop-filter: blur(12px);
+      background: rgba(13,13,13,0.7);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: padding 0.3s;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+    .logo img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+    }
+    .logo-text {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 0.08em;
+      color: var(--white);
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+    nav a {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+      position: relative;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 0;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease;
+    }
+    nav a:hover { color: var(--white); }
+    nav a:hover::after { transform: scaleX(1); }
+    .nav-cta {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      padding: 10px 24px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 60px 80px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('hero-bg.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.25);
+      transform: scale(1.05);
+      transition: transform 8s ease;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--bg) 0%, transparent 60%);
+    }
+    .hero-grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,200,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,200,255,0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+    }
+    .hero-tag {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(72px, 10vw, 140px);
+      line-height: 0.92;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.4s forwards;
+    }
+    .hero-title span { color: var(--accent); }
+    .hero-sub {
+      font-size: 17px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.55);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.6s forwards;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.8s forwards;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border: none;
+      cursor: none;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, transform 0.2s;
+      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    }
+    .btn-primary:hover { background: #33d4ff; transform: translateY(-2px); }
+    .btn-ghost {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--white); }
+    .btn-ghost::after {
+      content: '→';
+      transition: transform 0.2s;
+    }
+    .btn-ghost:hover::after { transform: translateX(4px); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      right: 60px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeIn 1s 1.2s forwards;
+    }
+    .hero-scroll span {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray);
+      writing-mode: vertical-rl;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scrollPulse 2s infinite;
+    }
+
+    /* SECTIONS */
+    section { position: relative; }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    /* DIRECTIONS */
+    .directions {
+      padding: 120px 60px;
+      background: var(--bg);
+    }
+    .directions-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 80px;
+    }
+    .directions-title {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 6vw, 90px);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+    }
+    .directions-desc {
+      max-width: 360px;
+      font-size: 15px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.7;
+      text-align: right;
+    }
+
+    .dir-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 1fr;
+      gap: 2px;
+      align-items: stretch;
+    }
+    .dir-card {
+      position: relative;
+      overflow: hidden;
+      height: 560px;
+      cursor: none;
+      text-decoration: none;
+      display: block;
+    }
+    .dir-card-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.2);
+      transition: filter 0.5s ease, transform 0.6s ease;
+    }
+    .dir-card:hover .dir-card-bg {
+      filter: brightness(0.35);
+      transform: scale(1.04);
+    }
+    .dir-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(13,13,13,0.95) 0%, transparent 60%);
+    }
+    .dir-card-accent {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .dir-card:hover .dir-card-accent { transform: scaleX(1); }
+    .dir-card-content {
+      position: absolute;
+      inset: 0;
+      padding: 32px 40px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .dir-card-num {
+      font-family: var(--font-display);
+      font-size: 64px;
+      color: rgba(0,200,255,0.08);
+      line-height: 1;
+      margin-bottom: 12px;
+      transition: color 0.3s;
+    }
+    .dir-card:hover .dir-card-num { color: rgba(0,200,255,0.15); }
+    .dir-card-title {
+      font-family: var(--font-display);
+      font-size: 36px;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 12px;
+      line-height: 1.1;
+      hyphens: none;
+      word-break: keep-all;
+      overflow-wrap: normal;
+    }
+    .dir-card-text {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.6;
+      margin-bottom: 28px;
+      margin-top: auto;
+    }
+    .dir-card-link {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: gap 0.2s;
+    }
+    .dir-card:hover .dir-card-link { gap: 16px; }
+    .dir-card-link::after { content: '→'; }
+
+    /* TRUST */
+    .trust {
+      padding: 100px 60px;
+      background: var(--bg2);
+      border-top: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .trust-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .trust-left {}
+    .trust-title {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5vw, 72px);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin-bottom: 24px;
+    }
+    .trust-text {
+      font-size: 15px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.75;
+      max-width: 420px;
+    }
+    .trust-right {}
+    .trust-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    .trust-stat {
+      background: var(--gray3);
+      padding: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .trust-stat::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 2px; height: 100%;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+    .trust-stat-num {
+      font-family: var(--font-display);
+      font-size: 52px;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .trust-stat-num span { color: var(--accent); }
+    .trust-stat-label {
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.08em;
+      line-height: 1.5;
+    }
+
+    .trust-vendors {
+      margin-top: 100px;
+      padding-top: 80px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .trust-vendors-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 56px;
+    }
+    .trust-vendors-title {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 4vw, 60px);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+    }
+    .trust-vendors-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.35);
+      max-width: 320px;
+      text-align: right;
+      line-height: 1.65;
+    }
+    .vendors-row {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 2px;
+    }
+    .vendor-logo {
+      background: var(--gray3);
+      padding: 28px 20px;
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.06em;
+      text-align: center;
+      transition: color 0.25s, background 0.25s;
+      white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+    }
+    .vendor-logo::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    .vendor-logo:hover {
+      color: rgba(255,255,255,0.9);
+      background: rgba(0,200,255,0.05);
+    }
+    .vendor-logo:hover::before { transform: scaleX(1); }
+
+    /* МПТ BADGE */
+    .mpt-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 32px;
+      padding: 14px 24px;
+      border: 1px solid rgba(0,200,255,0.2);
+      background: rgba(0,200,255,0.04);
+    }
+    .mpt-badge-icon {
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .mpt-badge-text {
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.06em;
+      line-height: 1.5;
+    }
+    .mpt-badge-text strong { color: rgba(255,255,255,0.8); font-weight: 500; }
+
+    /* FORM */
+    .contact {
+      padding: 120px 60px;
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+    }
+    .contact::before {
+      content: 'СВЯЗАТЬСЯ';
+      position: absolute;
+      font-family: var(--font-display);
+      font-size: 240px;
+      color: rgba(255,255,255,0.015);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+      letter-spacing: 0.05em;
+    }
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+      position: relative;
+      z-index: 2;
+    }
+    .contact-left {}
+    .contact-title {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 6vw, 90px);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin-bottom: 24px;
+    }
+    .contact-title span { color: var(--accent); }
+    .contact-text {
+      font-size: 15px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.75;
+      max-width: 380px;
+    }
+    .contact-right {}
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-label {
+      display: block;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 10px;
+    }
+    .form-input {
+      width: 100%;
+      background: var(--gray2);
+      border: 1px solid rgba(255,255,255,0.07);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 300;
+      padding: 16px 20px;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      -webkit-appearance: none;
+    }
+    .form-input:focus {
+      border-color: var(--accent);
+      background: rgba(0,200,255,0.03);
+    }
+    .form-input::placeholder { color: rgba(255,255,255,0.2); }
+    textarea.form-input {
+      resize: vertical;
+      min-height: 120px;
+    }
+    .form-submit {
+      margin-top: 8px;
+      width: 100%;
+      background: var(--accent);
+      color: var(--bg);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 18px;
+      border: none;
+      cursor: none;
+      transition: background 0.2s, transform 0.2s;
+      clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+    }
+    .form-submit:hover { background: #33d4ff; transform: translateY(-2px); }
+    .form-note {
+      margin-top: 14px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.2);
+      line-height: 1.6;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 48px 60px;
+      background: var(--bg2);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .footer-logo img { width: 32px; }
+    .footer-logo-text {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.08em;
+    }
+    .footer-links {
+      display: flex;
+      gap: 36px;
+    }
+    .footer-links a {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.6); }
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(255,255,255,0.15);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    /* REVEAL ON SCROLL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+  </style>
+</head>
+<body>
+
+  <!-- CUSTOM CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <!-- HEADER -->
+  <header>
+    <a href="https://itcommodity.ru" class="logo">
+      <img src="logo.png" alt="IT Commodity" />
+      <span class="logo-text">IT COMMODITY</span>
+    </a>
+    <nav>
+      <a href="https://itcommodity.ru/hardware">Оборудование</a>
+      <a href="https://itcommodity.ru/devops">DevOps</a>
+      <a href="https://itcommodity.ru/software">ПО</a>
+      <a href="#contact" class="nav-cta">Связаться</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-tag">Российское IT-оборудование и решения</p>
+      <h1 class="hero-title">
+        IT<br />
+        COMMO<span>DITY</span>
+      </h1>
+      <p class="hero-sub">
+        Серверное оборудование, DevOps-команда и лицензионное ПО — всё под одной крышей. Импортозамещение без компромиссов.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Получить консультацию</a>
+        <a href="#directions" class="btn-ghost">Направления</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- DIRECTIONS -->
+  <section class="directions" id="directions">
+    <div class="directions-header reveal">
+      <div>
+        <p class="section-label">Направления</p>
+        <h2 class="directions-title">ЧТО МЫ<br />ДЕЛАЕМ</h2>
+      </div>
+      <p class="directions-desc">
+        Три направления деятельности, которые закрывают потребности корпоративного заказчика в IT-инфраструктуре полностью.
+      </p>
+    </div>
+
+    <div class="dir-cards">
+      <!-- ЖЕЛЕЗО -->
+      <a href="https://itcommodity.ru/hardware" class="dir-card reveal reveal-delay-1">
+        <div class="dir-card-bg" style="background-image: url('dir-hardware.jpg')"></div>
+        <div class="dir-card-overlay"></div>
+        <div class="dir-card-accent"></div>
+        <div class="dir-card-content">
+          <div class="dir-card-num">01</div>
+          <h3 class="dir-card-title">ОБОРУДОВАНИЕ</h3>
+          <p class="dir-card-text">Серверы Мультиллект в реестре Минпромторга. Производство в Калуге, совместимость с КИИ, поставка под ключ.</p>
+          <span class="dir-card-link">Подробнее</span>
+        </div>
+      </a>
+
+      <!-- ДЕВОПС -->
+      <a href="https://itcommodity.ru/devops" class="dir-card reveal reveal-delay-2">
+        <div class="dir-card-bg" style="background-image: url('dir-devops.jpg')"></div>
+        <div class="dir-card-overlay"></div>
+        <div class="dir-card-accent"></div>
+        <div class="dir-card-content">
+          <div class="dir-card-num">02</div>
+          <h3 class="dir-card-title">DEVOPS<br>КОМАНДА</h3>
+          <p class="dir-card-text">CI/CD, оркестрация Kubernetes, IaC, мониторинг. Собственная команда на зарплате — без субподряда.</p>
+          <span class="dir-card-link">Подробнее</span>
+        </div>
+      </a>
+
+      <!-- ПО -->
+      <a href="https://itcommodity.ru/software" class="dir-card reveal reveal-delay-3">
+        <div class="dir-card-bg" style="background-image: url('dir-software.jpg')"></div>
+        <div class="dir-card-overlay"></div>
+        <div class="dir-card-accent"></div>
+        <div class="dir-card-content">
+          <div class="dir-card-num">03</div>
+          <h3 class="dir-card-title">ЛИЦЕНЗИОННОЕ<br>ПО</h3>
+          <p class="dir-card-text">Kaspersky, МойОфис, РЕД ОС, Veeam, UserGate и другие. Официальная поставка, счёт для юрлиц.</p>
+          <span class="dir-card-link">Подробнее</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="trust">
+    <div class="trust-inner">
+      <div class="trust-left reveal">
+        <p class="section-label">Почему мы</p>
+        <h2 class="trust-title">РОССИЙСКОЕ<br />ПРОИЗВОДСТВО</h2>
+        <p class="trust-text">
+          Серверы Мультиллект внесены в реестр Российской промышленной продукции Минпромторга. Производство в Калуге, 70 000 м² площадки, четыре линии автоматизированной сборки.
+        </p>
+        <div class="mpt-badge">
+          <div class="mpt-badge-icon"></div>
+          <p class="mpt-badge-text">
+            <strong>Реестр Минпромторга РФ</strong><br />
+            № 10726806 · ГИСП · 16.10.2025
+          </p>
+        </div>
+        <div style="display:flex; gap:16px; margin-top:32px; flex-wrap:wrap;">
+          <a href="https://itcommodity.ru/hardware" class="btn-primary">Подробнее об оборудовании</a>
+          <a href="#contact" class="btn-ghost">Запросить КП</a>
+        </div>
+      </div>
+      <div class="trust-right reveal reveal-delay-2">
+        <div class="trust-stats">
+          <div class="trust-stat">
+            <div class="trust-stat-num">70<span>K</span></div>
+            <div class="trust-stat-label">м² производственной<br />площадки в Калуге</div>
+          </div>
+          <div class="trust-stat">
+            <div class="trust-stat-num">4</div>
+            <div class="trust-stat-label">линии автоматизированной<br />сборки</div>
+          </div>
+          <div class="trust-stat">
+            <div class="trust-stat-num">3</div>
+            <div class="trust-stat-label">направления деятельности<br />под одной крышей</div>
+          </div>
+          <div class="trust-stat">
+            <div class="trust-stat-num">24<span>×7</span></div>
+            <div class="trust-stat-label">сервисная поддержка<br />в пакете Премьер</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trust-vendors reveal">
+      <div class="trust-vendors-header">
+        <div>
+          <p class="section-label">Лицензионное ПО</p>
+          <h3 class="trust-vendors-title">ПОСТАВЛЯЕМЫЙ<br />СОФТ</h3>
+        </div>
+        <p class="trust-vendors-desc">Официальная поставка, счёт для юрлиц. Работаем с корпоративными заказчиками и госструктурами.</p>
+      </div>
+      <div class="vendors-row">
+        <span class="vendor-logo">Microsoft</span>
+        <span class="vendor-logo">Kaspersky</span>
+        <span class="vendor-logo">Veeam</span>
+        <span class="vendor-logo">МойОфис</span>
+        <span class="vendor-logo">UserGate</span>
+        <span class="vendor-logo">Dr.Web</span>
+        <span class="vendor-logo">РЕД ОС</span>
+        <span class="vendor-logo">CommuniGate Pro</span>
+        <span class="vendor-logo">Adobe</span>
+        <span class="vendor-logo">Commvault</span>
+        <span class="vendor-logo">Qt</span>
+        <span class="vendor-logo">Archicad</span>
+      </div>
+      <div style="display:flex; gap:16px; margin-top:40px; flex-wrap:wrap;">
+        <a href="https://itcommodity.ru/software" class="btn-primary">Весь каталог ПО</a>
+        <a href="#contact" class="btn-ghost">Запросить стоимость</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div class="contact-left reveal">
+        <p class="section-label">Заявка</p>
+        <h2 class="contact-title">ОСТАВЬТЕ<br /><span>ЗАЯВКУ</span></h2>
+        <p class="contact-text">
+          Перезвоним в рабочее время, уточним задачу и предложим решение. Без навязчивых продаж.
+        </p>
+      </div>
+      <div class="contact-right reveal reveal-delay-2">
+        <form action="#" method="POST">
+          <div class="form-group">
+            <label class="form-label" for="name">Имя *</label>
+            <input class="form-input" type="text" id="name" name="name" placeholder="Иван Иванов" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Телефон *</label>
+            <input class="form-input" type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="comment">Комментарий</label>
+            <textarea class="form-input" id="comment" name="comment" placeholder="Расскажите о задаче"></textarea>
+          </div>
+          <button type="submit" class="form-submit">Отправить заявку</button>
+          <p class="form-note">Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="https://itcommodity.ru" class="footer-logo">
+      <img src="logo.png" alt="IT Commodity" />
+      <span class="footer-logo-text">IT COMMODITY</span>
+    </a>
+    <div class="footer-links">
+      <a href="https://itcommodity.ru/hardware">Оборудование</a>
+      <a href="https://itcommodity.ru/devops">DevOps</a>
+      <a href="https://itcommodity.ru/software">ПО</a>
+      <a href="https://itcommodity.ru/contacts">Контакты</a>
+    </div>
+    <span class="footer-copy">© 2026 IT Commodity</span>
+  </footer>
+
+  <script>
+    // CURSOR
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top = my + 'px';
+    });
+    function animateRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.transform = 'translate(-50%,-50%) scale(2.5)';
+        ring.style.width = '60px';
+        ring.style.height = '60px';
+        ring.style.borderColor = 'rgba(0,200,255,0.6)';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+        ring.style.width = '36px';
+        ring.style.height = '36px';
+        ring.style.borderColor = 'rgba(0,200,255,0.4)';
+      });
+    });
+
+    // SCROLL REVEAL
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // HERO BG PARALLAX
+    const heroBg = document.querySelector('.hero-bg');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      if (heroBg) {
+        heroBg.style.transform = `scale(1.05) translateY(${scrolled * 0.3}px)`;
+      }
+    });
+  </script>
+</body>
+</html>
