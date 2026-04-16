@@ -1,1 +1,1149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Оборудование — IT Commodity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Geologica:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --bg: #0d0d0d;
+      --bg2: #111114;
+      --accent: #00c8ff;
+      --white: #ffffff;
+      --gray: #6b6b7a;
+      --gray2: #1a1a22;
+      --gray3: #22222c;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body: 'Geologica', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* CURSOR */
+    .cursor {
+      position: fixed;
+      width: 10px; height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.15s ease, opacity 0.2s;
+      transform: translate(-50%, -50%);
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 36px; height: 36px;
+      border: 1px solid rgba(0,200,255,0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transition: transform 0.35s ease, width 0.3s, height 0.3s, opacity 0.2s;
+      transform: translate(-50%, -50%);
+    }
+
+    /* NOISE */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.35;
+    }
+
+    /* HEADER */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 60px;
+      backdrop-filter: blur(12px);
+      background: rgba(13,13,13,0.7);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+    .logo img { width: 44px; height: 44px; object-fit: contain; }
+    .logo-text {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 0.08em;
+      color: var(--white);
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+    nav a {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+      position: relative;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 0;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease;
+    }
+    nav a:hover { color: var(--white); }
+    nav a:hover::after { transform: scaleX(1); }
+    nav a.active { color: var(--white); }
+    nav a.active::after { transform: scaleX(1); }
+    .nav-cta {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      padding: 10px 24px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--accent); color: var(--bg); }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 60px 72px;
+      padding-top: 88px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('hardware-hero.jpg');
+      background-size: cover;
+      background-position: center 40%;
+      filter: brightness(0.2);
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--bg) 0%, transparent 65%);
+    }
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,200,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,200,255,0.025) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .breadcrumb {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.1s forwards;
+    }
+    .breadcrumb a {
+      color: rgba(255,255,255,0.3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .breadcrumb a:hover { color: var(--accent); }
+    .breadcrumb span { color: rgba(255,255,255,0.5); margin: 0 8px; }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(64px, 9vw, 128px);
+      line-height: 0.92;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.25s forwards;
+      hyphens: none;
+      word-break: keep-all;
+      overflow-wrap: normal;
+    }
+    .hero-title em { color: var(--accent); font-style: normal; }
+    .hero-sub {
+      font-size: 16px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.45);
+      max-width: 560px;
+      line-height: 1.75;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.4s forwards;
+    }
+
+    /* SECTION COMMON */
+    .section-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    /* BADGE */
+    .mpt-strip {
+      background: var(--gray2);
+      border-top: 1px solid rgba(0,200,255,0.15);
+      border-bottom: 1px solid rgba(0,200,255,0.15);
+      padding: 24px 60px;
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+    .mpt-strip-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .mpt-dot {
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .mpt-strip-text {
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.05em;
+      line-height: 1.5;
+    }
+    .mpt-strip-text strong { color: rgba(255,255,255,0.8); font-weight: 500; }
+    .mpt-strip-divider {
+      width: 1px;
+      height: 32px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* CATALOG */
+    .catalog {
+      padding: 100px 60px;
+    }
+    .catalog-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 64px;
+    }
+    .catalog-title {
+      font-family: var(--font-display);
+      font-size: clamp(44px, 5.5vw, 80px);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+    }
+    .catalog-desc {
+      max-width: 340px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.7;
+      text-align: right;
+    }
+
+    /* PRODUCT CARD */
+    .product-group {
+      margin-bottom: 80px;
+    }
+    .product-group-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 2px;
+    }
+    .product-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 2px;
+    }
+    .product-card {
+      background: var(--gray3);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.25s;
+    }
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+    .product-card:hover { background: #282832; }
+    .product-card:hover::before { transform: scaleX(1); }
+
+    .product-card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      align-self: flex-start;
+    }
+    .badge-soon {
+      color: rgba(255,255,255,0.45);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 4px 10px;
+    }
+
+    .product-card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      margin-bottom: 28px;
+      filter: brightness(0.85);
+      transition: filter 0.3s;
+    }
+    .product-card:hover .product-card-img { filter: brightness(1); }
+
+    .product-card-name {
+      font-family: var(--font-display);
+      font-size: 28px;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 8px;
+      line-height: 1.05;
+      hyphens: none;
+      word-break: keep-all;
+    }
+    .product-card-sub {
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 20px;
+      letter-spacing: 0.04em;
+    }
+    .product-card-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.65;
+      margin-bottom: 28px;
+      flex-grow: 1;
+    }
+
+    /* SPECS TABLE */
+    .specs {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 20px;
+      margin-bottom: 28px;
+    }
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      padding: 7px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .spec-row:last-child { border-bottom: none; }
+    .spec-key {
+      font-size: 11px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.05em;
+      flex-shrink: 0;
+    }
+    .spec-val {
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.65);
+      text-align: right;
+    }
+
+    .product-card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid rgba(0,200,255,0.3);
+      padding: 12px 20px;
+      transition: background 0.2s, border-color 0.2s, gap 0.2s;
+      align-self: flex-start;
+    }
+    .product-card-cta:hover {
+      background: rgba(0,200,255,0.08);
+      border-color: var(--accent);
+      gap: 16px;
+    }
+    .product-card-cta::after { content: '→'; }
+
+    /* SERVICE */
+    .service {
+      padding: 100px 60px;
+      background: var(--bg2);
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    .service-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 56px;
+    }
+    .service-title {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5vw, 72px);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+    }
+    .service-desc {
+      max-width: 340px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.7;
+      text-align: right;
+    }
+    .service-plans {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+    }
+    .service-plan {
+      background: var(--gray3);
+      padding: 36px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .service-plan.featured {
+      background: rgba(0,200,255,0.06);
+      border: 1px solid rgba(0,200,255,0.2);
+    }
+    .service-plan-tag {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .service-plan-name {
+      font-family: var(--font-display);
+      font-size: 32px;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 4px;
+      hyphens: none;
+    }
+    .service-plan-hours {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.08em;
+      margin-bottom: 28px;
+    }
+    .service-plan-items {
+      list-style: none;
+      flex-grow: 1;
+      margin-bottom: 32px;
+    }
+    .service-plan-items li {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      line-height: 1.4;
+    }
+    .service-plan-items li:last-child { border-bottom: none; }
+    .service-plan-items li .val {
+      font-weight: 400;
+      color: rgba(255,255,255,0.75);
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .service-plan-items li .val.accent { color: var(--accent); }
+    .service-plan-cta {
+      display: block;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid rgba(0,200,255,0.3);
+      padding: 13px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .service-plan-cta:hover {
+      background: rgba(0,200,255,0.08);
+      border-color: var(--accent);
+    }
+    .service-plan.featured .service-plan-cta {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+    .service-plan.featured .service-plan-cta:hover {
+      background: #33d4ff;
+    }
+
+    /* CONTACT */
+    .contact {
+      padding: 120px 60px;
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+    }
+    .contact::before {
+      content: 'КП';
+      position: absolute;
+      font-family: var(--font-display);
+      font-size: 400px;
+      color: rgba(255,255,255,0.012);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      letter-spacing: 0.05em;
+    }
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+      position: relative;
+      z-index: 2;
+    }
+    .contact-title {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 6vw, 90px);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin-bottom: 24px;
+    }
+    .contact-title span { color: var(--accent); }
+    .contact-text {
+      font-size: 15px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.75;
+      max-width: 380px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-label {
+      display: block;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 10px;
+    }
+    .form-input {
+      width: 100%;
+      background: var(--gray2);
+      border: 1px solid rgba(255,255,255,0.07);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 300;
+      padding: 16px 20px;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      -webkit-appearance: none;
+    }
+    .form-input:focus {
+      border-color: var(--accent);
+      background: rgba(0,200,255,0.03);
+    }
+    .form-input::placeholder { color: rgba(255,255,255,0.2); }
+    textarea.form-input { resize: vertical; min-height: 120px; }
+    .form-submit {
+      margin-top: 8px;
+      width: 100%;
+      background: var(--accent);
+      color: var(--bg);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 18px;
+      border: none;
+      cursor: none;
+      transition: background 0.2s, transform 0.2s;
+      clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+    }
+    .form-submit:hover { background: #33d4ff; transform: translateY(-2px); }
+    .form-note {
+      margin-top: 14px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.2);
+      line-height: 1.6;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 48px 60px;
+      background: var(--bg2);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .footer-logo img { width: 32px; }
+    .footer-logo-text {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.08em;
+    }
+    .footer-links {
+      display: flex;
+      gap: 36px;
+    }
+    .footer-links a {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.6); }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.15); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <!-- HEADER -->
+  <header>
+    <a href="https://itcommodity.ru" class="logo">
+      <img src="logo.png" alt="IT Commodity" />
+      <span class="logo-text">IT COMMODITY</span>
+    </a>
+    <nav>
+      <a href="https://itcommodity.ru/hardware" class="active">Оборудование</a>
+      <a href="https://itcommodity.ru/devops">DevOps</a>
+      <a href="https://itcommodity.ru/software">ПО</a>
+      <a href="#contact" class="nav-cta">Связаться</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <p class="breadcrumb">
+        <a href="https://itcommodity.ru">Главная</a>
+        <span>/</span>
+        Оборудование
+      </p>
+      <h1 class="hero-title">СЕРВЕРНОЕ<br /><em>ОБОРУДОВАНИЕ</em></h1>
+      <p class="hero-sub">
+        Серверы Мультиллект российского производства. Внесены в реестр Минпромторга, совместимы с объектами КИИ. Производство в Калуге, поставка под ключ.
+      </p>
+    </div>
+  </section>
+
+  <!-- МПТ STRIP -->
+  <div class="mpt-strip">
+    <div class="mpt-strip-item">
+      <div class="mpt-dot"></div>
+      <p class="mpt-strip-text"><strong>Реестр Минпромторга РФ</strong> · № 10726806</p>
+    </div>
+    <div class="mpt-strip-divider"></div>
+    <div class="mpt-strip-item">
+      <div class="mpt-dot"></div>
+      <p class="mpt-strip-text"><strong>Производство Калуга</strong> · 70 000 м² · 4 линии сборки</p>
+    </div>
+    <div class="mpt-strip-divider"></div>
+    <div class="mpt-strip-item">
+      <div class="mpt-dot"></div>
+      <p class="mpt-strip-text"><strong>КИИ-совместимость</strong> · ПАК для критической инфраструктуры</p>
+    </div>
+    <div class="mpt-strip-divider"></div>
+    <div class="mpt-strip-item">
+      <div class="mpt-dot"></div>
+      <p class="mpt-strip-text"><strong>Платформа x86</strong> · Intel Xeon 4/5 Gen · Lanqi Jinju Q</p>
+    </div>
+  </div>
+
+  <!-- CATALOG -->
+  <section class="catalog">
+    <div class="catalog-header reveal">
+      <div>
+        <p class="section-label">Продуктовая линейка</p>
+        <h2 class="catalog-title">КАТАЛОГ<br />ПРОДУКТОВ</h2>
+      </div>
+      <p class="catalog-desc">Серверное и сетевое оборудование, ПАК для КИИ и пользовательские устройства. Полная линейка под задачи корпоративного заказчика.</p>
+    </div>
+
+    <!-- СЕРВЕРЫ -->
+    <div class="product-group reveal">
+      <p class="product-group-label">Серверы</p>
+      <div class="product-cards">
+
+        <!-- 2U 4/5Gen — в продаже -->
+        <div class="product-card reveal reveal-delay-1">
+          <span class="product-card-badge badge-soon">2025</span>
+          <img class="product-card-img" src="server-2u45.png" alt="Сервер МЛТ-С 2U 4/5Gen" />
+          <h3 class="product-card-name">Сервер 2U</h3>
+          <p class="product-card-sub">МЛТ-С · 4/5 Gen · Реестр МПТ № 10726806</p>
+          <p class="product-card-desc">Мощный универсальный сервер для современных дата-центров. Поддержка двухпроцессорных конфигураций, GPU-ускорителей, гибкие дисковые корзины.</p>
+          <div class="specs">
+            <div class="spec-row">
+              <span class="spec-key">Процессор</span>
+              <span class="spec-val">До 2× Intel Xeon 4/5 Gen, до 64 ядер</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">Память</span>
+              <span class="spec-val">32× DDR5, до 8 ТБ, CXL 1.1</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">Накопители</span>
+              <span class="spec-val">До 46 шт. (HDD/SSD/NVMe U.2)</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">GPU</span>
+              <span class="spec-val">До 4× двухслотовых, до 450 Вт</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">PCIe</span>
+              <span class="spec-val">До 22 слотов (OCP 3.0 ×2, PCIe ×20)</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">Управление</span>
+              <span class="spec-val">BMC AST2600, IPMI 2.0, Redfish, KVM</span>
+            </div>
+          </div>
+          <a href="#contact" class="product-card-cta">Запросить расчёт</a>
+        </div>
+
+        <!-- 1U 5Gen -->
+        <div class="product-card reveal reveal-delay-2">
+          <span class="product-card-badge badge-soon">2026</span>
+          <img class="product-card-img" src="server-1u5.png" alt="Сервер МЛТ-С 1U 5Gen" />
+          <h3 class="product-card-name">Сервер 1U</h3>
+          <p class="product-card-sub">МЛТ-С · 5 Gen</p>
+          <p class="product-card-desc">Компактный 1U-сервер на базе Intel Xeon 5-го поколения. Оптимален для высокоплотного размещения в дата-центрах с ограниченным стойко-местом.</p>
+          <div class="specs">
+            <div class="spec-row">
+              <span class="spec-key">Процессор</span>
+              <span class="spec-val">Intel Xeon 5 Gen</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">Форм-фактор</span>
+              <span class="spec-val">1U</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">Платформа</span>
+              <span class="spec-val">x86</span>
+            </div>
+          </div>
+          <a href="#contact" class="product-card-cta">Запросить расчёт</a>
+        </div>
+
+        <!-- 4U 5Gen -->
+        <div class="product-card reveal reveal-delay-3">
+          <span class="product-card-badge badge-soon">2026</span>
+          <img class="product-card-img" src="server-4u5.png" alt="Сервер МЛТ-С 4U 5Gen" />
+          <h3 class="product-card-name">Сервер 4U</h3>
+          <p class="product-card-sub">МЛТ-С · 5 Gen</p>
+          <p class="product-card-desc">Высокоплотный 4U-сервер с расширенными возможностями по количеству накопителей и слотов расширения. Под задачи хранения и вычислений.</p>
+          <div class="specs">
+            <div class="spec-row">
+              <span class="spec-key">Процессор</span>
+              <span class="spec-val">Intel Xeon 5 Gen</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">Форм-фактор</span>
+              <span class="spec-val">4U</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">Платформа</span>
+              <span class="spec-val">x86</span>
+            </div>
+          </div>
+          <a href="#contact" class="product-card-cta">Запросить расчёт</a>
+        </div>
+
+        <!-- 2U 6Gen -->
+        <div class="product-card reveal reveal-delay-4">
+          <span class="product-card-badge badge-soon">2026</span>
+          <img class="product-card-img" src="server-2u6.png" alt="Сервер МЛТ-С 2U 6Gen" />
+          <h3 class="product-card-name">Сервер 2U</h3>
+          <p class="product-card-sub">МЛТ-С · 6 Gen</p>
+          <p class="product-card-desc">Следующее поколение флагманского 2U-сервера на базе Intel Xeon 6-го поколения. Повышенная энергоэффективность и производительность на ядро.</p>
+          <div class="specs">
+            <div class="spec-row">
+              <span class="spec-key">Процессор</span>
+              <span class="spec-val">Intel Xeon 6 Gen</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">Форм-фактор</span>
+              <span class="spec-val">2U</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">Платформа</span>
+              <span class="spec-val">x86</span>
+            </div>
+          </div>
+          <a href="#contact" class="product-card-cta">Запросить расчёт</a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- СЕТЕВОЕ ОБОРУДОВАНИЕ -->
+    <div class="product-group reveal">
+      <p class="product-group-label">Сетевое оборудование</p>
+      <div class="product-cards">
+        <div class="product-card reveal reveal-delay-1">
+          <span class="product-card-badge badge-soon">2026–2027</span>
+          <img class="product-card-img" src="network-switch.png" alt="Коммутатор" />
+          <h3 class="product-card-name">Коммутаторы</h3>
+          <p class="product-card-sub">МЛТ · L2/L3</p>
+          <p class="product-card-desc">Управляемые коммутаторы для корпоративных сетей и дата-центров. Полный стек сетевых функций, российское производство.</p>
+          <a href="#contact" class="product-card-cta">Запросить расчёт</a>
+        </div>
+
+        <div class="product-card reveal reveal-delay-2">
+          <span class="product-card-badge badge-soon">2026–2027</span>
+          <img class="product-card-img" src="network-router.png" alt="Маршрутизатор" />
+          <h3 class="product-card-name">Маршрутизаторы</h3>
+          <p class="product-card-sub">МЛТ · Enterprise</p>
+          <p class="product-card-desc">Маршрутизаторы для корпоративного периметра и магистральных каналов. Поддержка современных протоколов маршрутизации.</p>
+          <a href="#contact" class="product-card-cta">Запросить расчёт</a>
+        </div>
+
+        <div class="product-card reveal reveal-delay-3">
+          <span class="product-card-badge badge-soon">2026–2027</span>
+          <img class="product-card-img" src="network-sfp.png" alt="Оптические модули" />
+          <h3 class="product-card-name">Оптические модули</h3>
+          <p class="product-card-sub">МЛТ · SFP/SFP+/QSFP</p>
+          <p class="product-card-desc">Оптические трансиверы и модули для высокоскоростных соединений в дата-центрах и корпоративных сетях. Совместимы с оборудованием МЛТ.</p>
+          <a href="#contact" class="product-card-cta">Запросить расчёт</a>
+        </div>
+
+        <div class="product-card reveal reveal-delay-4">
+          <span class="product-card-badge badge-soon">2026–2027</span>
+          <img class="product-card-img" src="network-sw.png" alt="ПО управления" />
+          <h3 class="product-card-name">ПО управления</h3>
+          <p class="product-card-sub">МЛТ · NMS</p>
+          <p class="product-card-desc">Программная платформа централизованного управления сетевой инфраструктурой МЛТ. Мониторинг, конфигурирование, алертинг.</p>
+          <a href="#contact" class="product-card-cta">Запросить расчёт</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ПАК ДЛЯ КИИ -->
+    <div class="product-group reveal">
+      <p class="product-group-label">ПАК для КИИ и системы хранения</p>
+      <div class="product-cards">
+        <div class="product-card reveal reveal-delay-1">
+          <span class="product-card-badge badge-soon">2027–2028</span>
+          <img class="product-card-img" src="pak-kii.png" alt="ПАК для КИИ" />
+          <h3 class="product-card-name">ПАК для КИИ</h3>
+          <p class="product-card-sub">МЛТ · Программно-аппаратный комплекс</p>
+          <p class="product-card-desc">Программно-аппаратный комплекс для защиты объектов критической информационной инфраструктуры. Сертифицирован для применения на объектах КИИ в соответствии с 187-ФЗ.</p>
+          <a href="#contact" class="product-card-cta">Запросить расчёт</a>
+        </div>
+
+        <div class="product-card reveal reveal-delay-2">
+          <span class="product-card-badge badge-soon">2027–2028</span>
+          <img class="product-card-img" src="storage.png" alt="Системы хранения данных" />
+          <h3 class="product-card-name">Системы хранения</h3>
+          <p class="product-card-sub">МЛТ · СХД</p>
+          <p class="product-card-desc">Системы хранения данных корпоративного класса. Высокая плотность хранения, избыточность, поддержка протоколов iSCSI, FC, NFS.</p>
+          <a href="#contact" class="product-card-cta">Запросить расчёт</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ПОЛЬЗОВАТЕЛЬСКОЕ ОБОРУДОВАНИЕ -->
+    <div class="product-group reveal">
+      <p class="product-group-label">Пользовательское оборудование</p>
+      <div class="product-cards">
+        <div class="product-card reveal reveal-delay-1">
+          <span class="product-card-badge badge-soon">2026</span>
+          <img class="product-card-img" src="monitor.png" alt="Монитор" />
+          <h3 class="product-card-name">Монитор</h3>
+          <p class="product-card-sub">МЛТ · Корпоративная серия</p>
+          <p class="product-card-desc">Мониторы для корпоративных рабочих мест. Российское производство, возможность поставки крупными партиями.</p>
+          <a href="#contact" class="product-card-cta">Запросить расчёт</a>
+        </div>
+
+        <div class="product-card reveal reveal-delay-2">
+          <span class="product-card-badge badge-soon">2026</span>
+          <img class="product-card-img" src="systemunit.png" alt="Системный блок" />
+          <h3 class="product-card-name">Системный блок</h3>
+          <p class="product-card-sub">МЛТ · Desktop</p>
+          <p class="product-card-desc">Настольные ПК для корпоративных рабочих мест. Поддержка российских ОС, совместимость с корпоративными системами управления.</p>
+          <a href="#contact" class="product-card-cta">Запросить расчёт</a>
+        </div>
+
+        <div class="product-card reveal reveal-delay-3">
+          <span class="product-card-badge badge-soon">2026–2027</span>
+          <img class="product-card-img" src="minipc.png" alt="Мини ПК" />
+          <h3 class="product-card-name">Мини ПК</h3>
+          <p class="product-card-sub">МЛТ · Mini</p>
+          <p class="product-card-desc">Компактные мини-ПК для задач, где важна минимизация занимаемого места. Подходят для VESA-монтажа и встроенных решений.</p>
+          <a href="#contact" class="product-card-cta">Запросить расчёт</a>
+        </div>
+
+        <div class="product-card reveal reveal-delay-4">
+          <span class="product-card-badge badge-soon">2026–2027</span>
+          <img class="product-card-img" src="monoblock.png" alt="Моноблок" />
+          <h3 class="product-card-name">Моноблок</h3>
+          <p class="product-card-sub">МЛТ · AIO</p>
+          <p class="product-card-desc">Моноблочные ПК для рабочих мест, где важен аккуратный внешний вид и минимум кабелей. Корпоративное управление из коробки.</p>
+          <a href="#contact" class="product-card-cta">Запросить расчёт</a>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- СЕРВИСНАЯ ПОДДЕРЖКА -->
+  <section class="service">
+    <div class="service-header reveal">
+      <div>
+        <p class="section-label">Сервис</p>
+        <h2 class="service-title">ТЕХНИЧЕСКАЯ<br />ПОДДЕРЖКА</h2>
+      </div>
+      <p class="service-desc">Базовая гарантия 1 год, действует через 90 дней после отгрузки. Расширенные пакеты — в составе спецификации оборудования.</p>
+    </div>
+    <div class="service-plans">
+
+      <div class="service-plan reveal reveal-delay-1">
+        <p class="service-plan-tag">Базово</p>
+        <h3 class="service-plan-name">Стандартная гарантия</h3>
+        <p class="service-plan-hours">Включена в поставку</p>
+        <ul class="service-plan-items">
+          <li>Горячая линия <span class="val">9×5</span></li>
+          <li>Портал техподдержки <span class="val accent">✓</span></li>
+          <li>Обновления ПО <span class="val accent">✓</span></li>
+          <li>Удалённая поддержка <span class="val">—</span></li>
+          <li>Замена оборудования <span class="val">40 р.д.</span></li>
+          <li>Выезд инженера <span class="val">—</span></li>
+        </ul>
+        <a href="#contact" class="service-plan-cta">Запросить расчёт</a>
+      </div>
+
+      <div class="service-plan reveal reveal-delay-2">
+        <p class="service-plan-tag">Пакет</p>
+        <h3 class="service-plan-name">Базовый 9×5</h3>
+        <p class="service-plan-hours">Рабочие дни, 9 часов</p>
+        <ul class="service-plan-items">
+          <li>Горячая линия <span class="val">9×5</span></li>
+          <li>Портал техподдержки <span class="val accent">✓</span></li>
+          <li>Обновления ПО <span class="val accent">✓</span></li>
+          <li>Удалённая поддержка <span class="val">9×5</span></li>
+          <li>Замена оборудования <span class="val">5 р.д.</span></li>
+          <li>Выезд инженера <span class="val accent">✓</span></li>
+        </ul>
+        <a href="#contact" class="service-plan-cta">Запросить расчёт</a>
+      </div>
+
+      <div class="service-plan reveal reveal-delay-3">
+        <p class="service-plan-tag">Пакет</p>
+        <h3 class="service-plan-name">Стандарт 9×5</h3>
+        <p class="service-plan-hours">Рабочие дни, 9 часов</p>
+        <ul class="service-plan-items">
+          <li>Горячая линия <span class="val">9×5</span></li>
+          <li>Портал техподдержки <span class="val accent">✓</span></li>
+          <li>Обновления ПО <span class="val accent">✓</span></li>
+          <li>Удалённая поддержка <span class="val">9×5</span></li>
+          <li>Замена оборудования <span class="val accent">NBD</span></li>
+          <li>Выезд инженера <span class="val accent">✓</span></li>
+        </ul>
+        <a href="#contact" class="service-plan-cta">Запросить расчёт</a>
+      </div>
+
+      <div class="service-plan featured reveal reveal-delay-4">
+        <p class="service-plan-tag">Максимум</p>
+        <h3 class="service-plan-name">Премьер 24×7</h3>
+        <p class="service-plan-hours">Круглосуточно, без выходных</p>
+        <ul class="service-plan-items">
+          <li>Горячая линия <span class="val accent">24×7</span></li>
+          <li>Портал техподдержки <span class="val accent">✓</span></li>
+          <li>Обновления ПО <span class="val accent">✓</span></li>
+          <li>Удалённая поддержка <span class="val">9×5</span></li>
+          <li>Замена оборудования <span class="val accent">4 часа</span></li>
+          <li>Выезд инженера <span class="val accent">✓</span></li>
+        </ul>
+        <a href="#contact" class="service-plan-cta">Запросить расчёт</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div class="reveal">
+        <p class="section-label">Заявка</p>
+        <h2 class="contact-title">ЗАПРОСИТЬ<br /><span>КП</span></h2>
+        <p class="contact-text">Уточним конфигурацию под вашу задачу, рассчитаем стоимость и сроки поставки. Работаем с юрлицами, выставляем счёт.</p>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <form action="#" method="POST">
+          <div class="form-group">
+            <label class="form-label" for="name">Имя *</label>
+            <input class="form-input" type="text" id="name" name="name" placeholder="Иван Иванов" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Телефон *</label>
+            <input class="form-input" type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="comment">Комментарий</label>
+            <textarea class="form-input" id="comment" name="comment" placeholder="Расскажите о задаче, объёме, сроках"></textarea>
+          </div>
+          <button type="submit" class="form-submit">Отправить заявку</button>
+          <p class="form-note">Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="https://itcommodity.ru" class="footer-logo">
+      <img src="logo.png" alt="IT Commodity" />
+      <span class="footer-logo-text">IT COMMODITY</span>
+    </a>
+    <div class="footer-links">
+      <a href="https://itcommodity.ru/hardware">Оборудование</a>
+      <a href="https://itcommodity.ru/devops">DevOps</a>
+      <a href="https://itcommodity.ru/software">ПО</a>
+      <a href="https://itcommodity.ru/contacts">Контакты</a>
+    </div>
+    <span class="footer-copy">© 2026 IT Commodity</span>
+  </footer>
+
+  <script>
+    // CURSOR
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top = my + 'px';
+    });
+    function animateRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.transform = 'translate(-50%,-50%) scale(2.5)';
+        ring.style.width = '60px';
+        ring.style.height = '60px';
+        ring.style.borderColor = 'rgba(0,200,255,0.6)';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+        ring.style.width = '36px';
+        ring.style.height = '36px';
+        ring.style.borderColor = 'rgba(0,200,255,0.4)';
+      });
+    });
+
+    // SCROLL REVEAL
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
