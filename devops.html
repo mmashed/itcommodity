@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevOps — IT Commodity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Geologica:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0d;
+      --bg2: #111114;
+      --accent: #00c8ff;
+      --white: #ffffff;
+      --gray: #6b6b7a;
+      --gray2: #1a1a22;
+      --gray3: #22222c;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body: 'Geologica', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    .cursor {
+      position: fixed;
+      width: 10px; height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.15s ease, opacity 0.2s;
+      transform: translate(-50%, -50%);
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 36px; height: 36px;
+      border: 1px solid rgba(0,200,255,0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transition: transform 0.35s ease, width 0.3s, height 0.3s, opacity 0.2s;
+      transform: translate(-50%, -50%);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.35;
+    }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 60px;
+      backdrop-filter: blur(12px);
+      background: rgba(13,13,13,0.7);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+    .logo img { width: 44px; height: 44px; object-fit: contain; }
+    .logo-text {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 0.08em;
+      color: var(--white);
+    }
+    nav { display: flex; align-items: center; gap: 40px; }
+    nav a {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+      position: relative;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 0;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease;
+    }
+    nav a:hover { color: var(--white); }
+    nav a:hover::after { transform: scaleX(1); }
+    nav a.active { color: var(--white); }
+    nav a.active::after { transform: scaleX(1); }
+    .nav-cta {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      padding: 10px 24px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--accent); color: var(--bg); }
+
+    .hero {
+      position: relative;
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 88px 60px 72px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('devops-hero.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.2);
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--bg) 0%, transparent 65%);
+    }
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,200,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,200,255,0.025) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+    .hero-content { position: relative; z-index: 2; }
+    .breadcrumb {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.1s forwards;
+    }
+    .breadcrumb a { color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--accent); }
+    .breadcrumb span { color: rgba(255,255,255,0.5); margin: 0 8px; }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(64px, 9vw, 128px);
+      line-height: 0.92;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.25s forwards;
+      hyphens: none;
+      word-break: keep-all;
+      overflow-wrap: normal;
+    }
+    .hero-title em { color: var(--accent); font-style: normal; }
+    .hero-sub {
+      font-size: 16px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.45);
+      max-width: 560px;
+      line-height: 1.75;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.4s forwards;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .services { padding: 100px 60px; background: var(--bg); }
+    .services-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 72px;
+    }
+    .services-title {
+      font-family: var(--font-display);
+      font-size: clamp(44px, 5.5vw, 80px);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      hyphens: none;
+      word-break: keep-all;
+    }
+    .services-desc {
+      max-width: 340px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.7;
+      text-align: right;
+    }
+    .service-blocks {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    .service-block {
+      background: var(--gray3);
+      padding: 48px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.25s;
+    }
+    .service-block::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .service-block:hover { background: #282832; }
+    .service-block:hover::before { transform: scaleX(1); }
+    .service-block-num {
+      font-family: var(--font-display);
+      font-size: 96px;
+      color: rgba(0,200,255,0.05);
+      line-height: 1;
+      position: absolute;
+      top: 24px; right: 36px;
+      transition: color 0.3s;
+    }
+    .service-block:hover .service-block-num { color: rgba(0,200,255,0.1); }
+    .service-block-title {
+      font-family: var(--font-display);
+      font-size: 36px;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 16px;
+      line-height: 1.05;
+      hyphens: none;
+      word-break: keep-all;
+      position: relative;
+      z-index: 1;
+    }
+    .service-block-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.7;
+      margin-bottom: 32px;
+      max-width: 480px;
+      position: relative;
+      z-index: 1;
+    }
+    .service-block-stack {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 24px;
+    }
+    .stack-label {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+      margin-bottom: 14px;
+    }
+    .stack-items { display: flex; flex-wrap: wrap; gap: 8px; }
+    .stack-item {
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.05em;
+      padding: 5px 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .service-block:hover .stack-item { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.15); }
+    .stack-item.hi { color: rgba(0,200,255,0.7); border-color: rgba(0,200,255,0.2); }
+
+    .process {
+      padding: 100px 60px;
+      background: var(--bg2);
+      border-top: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .process-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 72px;
+    }
+    .process-title {
+      font-family: var(--font-display);
+      font-size: clamp(44px, 5.5vw, 80px);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      hyphens: none;
+      word-break: keep-all;
+    }
+    .process-desc {
+      max-width: 340px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.7;
+      text-align: right;
+    }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+    }
+    .process-step {
+      background: var(--gray3);
+      padding: 40px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .process-step-num {
+      font-family: var(--font-display);
+      font-size: 72px;
+      color: rgba(0,200,255,0.06);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .process-step-title {
+      font-family: var(--font-display);
+      font-size: 26px;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 14px;
+      line-height: 1.1;
+      hyphens: none;
+      word-break: keep-all;
+    }
+    .process-step-text {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.65;
+    }
+    .process-step-line {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .process-step:hover .process-step-line { opacity: 1; }
+
+    .why { padding: 100px 60px; background: var(--bg); }
+    .why-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .why-title {
+      font-family: var(--font-display);
+      font-size: clamp(44px, 5.5vw, 80px);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin-bottom: 24px;
+      hyphens: none;
+      word-break: keep-all;
+    }
+    .why-title em { color: var(--accent); font-style: normal; }
+    .why-text {
+      font-size: 15px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.75;
+      margin-bottom: 36px;
+    }
+    .why-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--accent);
+      text-decoration: none;
+      padding: 16px 32px;
+      transition: background 0.2s, gap 0.2s;
+      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    }
+    .why-cta:hover { background: #33d4ff; gap: 18px; }
+    .why-cta::after { content: '→'; }
+    .why-facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    .why-fact {
+      background: var(--gray3);
+      padding: 36px;
+      position: relative;
+    }
+    .why-fact::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 2px; height: 100%;
+      background: var(--accent);
+      opacity: 0.4;
+    }
+    .why-fact-num {
+      font-family: var(--font-display);
+      font-size: 44px;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 8px;
+      hyphens: none;
+    }
+    .why-fact-num em { color: var(--accent); font-style: normal; }
+    .why-fact-text {
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.55;
+      letter-spacing: 0.04em;
+    }
+
+    .contact {
+      padding: 120px 60px;
+      background: var(--bg2);
+      position: relative;
+      overflow: hidden;
+    }
+    .contact::before {
+      content: 'DEVOPS';
+      position: absolute;
+      font-family: var(--font-display);
+      font-size: 320px;
+      color: rgba(255,255,255,0.012);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+      position: relative;
+      z-index: 2;
+    }
+    .contact-title {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 6vw, 90px);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin-bottom: 24px;
+      hyphens: none;
+      word-break: keep-all;
+    }
+    .contact-title span { color: var(--accent); }
+    .contact-text {
+      font-size: 15px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.75;
+      max-width: 380px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-label {
+      display: block;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 10px;
+    }
+    .form-input {
+      width: 100%;
+      background: var(--gray2);
+      border: 1px solid rgba(255,255,255,0.07);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 300;
+      padding: 16px 20px;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      -webkit-appearance: none;
+    }
+    .form-input:focus { border-color: var(--accent); background: rgba(0,200,255,0.03); }
+    .form-input::placeholder { color: rgba(255,255,255,0.2); }
+    textarea.form-input { resize: vertical; min-height: 120px; }
+    .form-submit {
+      margin-top: 8px;
+      width: 100%;
+      background: var(--accent);
+      color: var(--bg);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 18px;
+      border: none;
+      cursor: none;
+      transition: background 0.2s, transform 0.2s;
+      clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+    }
+    .form-submit:hover { background: #33d4ff; transform: translateY(-2px); }
+    .form-note { margin-top: 14px; font-size: 11px; color: rgba(255,255,255,0.2); line-height: 1.6; }
+
+    footer {
+      padding: 48px 60px;
+      background: var(--bg2);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .footer-logo img { width: 32px; }
+    .footer-logo-text { font-family: var(--font-display); font-size: 18px; color: rgba(255,255,255,0.6); letter-spacing: 0.08em; }
+    .footer-links { display: flex; gap: 36px; }
+    .footer-links a {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.6); }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.15); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <header>
+    <a href="https://itcommodity.ru" class="logo">
+      <img src="logo.jpg" alt="IT Commodity" />
+      <span class="logo-text">IT COMMODITY</span>
+    </a>
+    <nav>
+      <a href="https://itcommodity.ru/hardware">Оборудование</a>
+      <a href="https://itcommodity.ru/devops" class="active">DevOps</a>
+      <a href="https://itcommodity.ru/software">ПО</a>
+      <a href="#contact" class="nav-cta">Связаться</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <p class="breadcrumb">
+        <a href="https://itcommodity.ru">Главная</a>
+        <span>/</span>
+        DevOps
+      </p>
+      <h1 class="hero-title">DEVOPS<br /><em>КОМАНДА</em></h1>
+      <p class="hero-sub">Своя команда на зарплате — без субподряда и посредников. CI/CD, Kubernetes, IaC, мониторинг. Берём инфраструктуру под ключ от брифинга до поддержки.</p>
+    </div>
+  </section>
+
+  <section class="services">
+    <div class="services-header reveal">
+      <div>
+        <p class="section-label">Направления</p>
+        <h2 class="services-title">ЧТО МЫ<br />ДЕЛАЕМ</h2>
+      </div>
+      <p class="services-desc">Четыре направления, которые закрывают полный цикл DevOps-задач корпоративного заказчика.</p>
+    </div>
+
+    <div class="service-blocks">
+      <div class="service-block reveal reveal-delay-1">
+        <div class="service-block-num">01</div>
+        <h3 class="service-block-title">CI/CD</h3>
+        <p class="service-block-desc">Выстраиваем пайплайны непрерывной интеграции и доставки. Код превращается в работающий продукт без ручного вмешательства: сборка, тестирование, деплой — всё автоматически. Поддержка Blue-Green и Canary-релизов, автоматический откат при падении тестов.</p>
+        <div class="service-block-stack">
+          <p class="stack-label">Стек</p>
+          <div class="stack-items">
+            <span class="stack-item hi">GitLab CI/CD</span>
+            <span class="stack-item hi">GitHub Actions</span>
+            <span class="stack-item">Jenkins</span>
+            <span class="stack-item">TeamCity</span>
+            <span class="stack-item">Docker</span>
+            <span class="stack-item">SonarQube</span>
+            <span class="stack-item">Nexus</span>
+            <span class="stack-item">Artifactory</span>
+            <span class="stack-item">Snyk</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-block reveal reveal-delay-2">
+        <div class="service-block-num">02</div>
+        <h3 class="service-block-title">Инфраструктура и IaC</h3>
+        <p class="service-block-desc">Описываем и управляем инфраструктурой как кодом. Любое изменение — через Git, никаких ручных правок на серверах. Дрифт-контроль, автомасштабирование, полная воспроизводимость окружений. Работаем с Yandex Cloud, Selectel и on-premise.</p>
+        <div class="service-block-stack">
+          <p class="stack-label">Стек</p>
+          <div class="stack-items">
+            <span class="stack-item hi">Terraform</span>
+            <span class="stack-item hi">Ansible</span>
+            <span class="stack-item">Chef</span>
+            <span class="stack-item">Puppet</span>
+            <span class="stack-item">Checkov</span>
+            <span class="stack-item">Terrascan</span>
+            <span class="stack-item">Molecule</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-block reveal reveal-delay-3">
+        <div class="service-block-num">03</div>
+        <h3 class="service-block-title">Контейнеризация и K8s</h3>
+        <p class="service-block-desc">Контейнеризируем приложения, разворачиваем и обслуживаем Kubernetes-кластеры. Настраиваем HPA и Cluster Autoscaler, изолируем окружения через Namespaces, выстраиваем GitOps через ArgoCD. Управление конфигурациями через Helm.</p>
+        <div class="service-block-stack">
+          <p class="stack-label">Стек</p>
+          <div class="stack-items">
+            <span class="stack-item hi">Kubernetes</span>
+            <span class="stack-item hi">Helm</span>
+            <span class="stack-item hi">Docker</span>
+            <span class="stack-item">ArgoCD</span>
+            <span class="stack-item">Flux</span>
+            <span class="stack-item">Kustomize</span>
+            <span class="stack-item">Istio</span>
+            <span class="stack-item">Ingress Nginx</span>
+            <span class="stack-item">Containerd</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-block reveal reveal-delay-4">
+        <div class="service-block-num">04</div>
+        <h3 class="service-block-title">Мониторинг и логирование</h3>
+        <p class="service-block-desc">Настраиваем полный observability-стек: метрики, логи, трейсинг. Дашборды в Grafana, алерты в Telegram или PagerDuty, трейсинг запросов через все микросервисы. Считаем SLA/SLO/SLI и предоставляем отчёты по доступности.</p>
+        <div class="service-block-stack">
+          <p class="stack-label">Стек</p>
+          <div class="stack-items">
+            <span class="stack-item hi">Prometheus</span>
+            <span class="stack-item hi">Grafana</span>
+            <span class="stack-item">Zabbix</span>
+            <span class="stack-item">ELK Stack</span>
+            <span class="stack-item">Loki</span>
+            <span class="stack-item">Jaeger</span>
+            <span class="stack-item">Alertmanager</span>
+            <span class="stack-item">Filebeat</span>
+            <span class="stack-item">Vector</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="process">
+    <div class="process-header reveal">
+      <div>
+        <p class="section-label">Процесс</p>
+        <h2 class="process-title">КАК МЫ<br />РАБОТАЕМ</h2>
+      </div>
+      <p class="process-desc">Фиксированный процесс на каждом проекте. Заказчик знает, что происходит на каждом этапе.</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-step reveal reveal-delay-1">
+        <div class="process-step-num">01</div>
+        <h3 class="process-step-title">Брифинг</h3>
+        <p class="process-step-text">Разбираемся в задаче: стек, масштаб, требования к доступности, текущее состояние инфраструктуры. Фиксируем цели и ограничения.</p>
+        <div class="process-step-line"></div>
+      </div>
+      <div class="process-step reveal reveal-delay-2">
+        <div class="process-step-num">02</div>
+        <h3 class="process-step-title">Аудит</h3>
+        <p class="process-step-text">Смотрим что есть сейчас: пайплайны, инфраструктура, мониторинг. Находим узкие места и готовим план работ с приоритетами.</p>
+        <div class="process-step-line"></div>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <div class="process-step-num">03</div>
+        <h3 class="process-step-title">Внедрение</h3>
+        <p class="process-step-text">Реализуем согласованный план. Всё через Git, документируем по ходу, не ломаем то что работает. Поэтапная миграция без простоев.</p>
+        <div class="process-step-line"></div>
+      </div>
+      <div class="process-step reveal reveal-delay-4">
+        <div class="process-step-num">04</div>
+        <h3 class="process-step-title">Поддержка</h3>
+        <p class="process-step-text">После сдачи остаёмся на проекте: инциденты, обновления, масштабирование. Инфраструктура живёт и развивается вместе с продуктом.</p>
+        <div class="process-step-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="why">
+    <div class="why-inner">
+      <div class="reveal">
+        <p class="section-label">Почему мы</p>
+        <h2 class="why-title">СВОЯ КОМАНДА —<br /><em>БЕЗ</em> ПОСРЕДНИКОВ</h2>
+        <p class="why-text">Все специалисты в штате. Мы не перепродаём субподрядчиков и не добавляем маржу поверх чужой работы. Заказчик работает напрямую с инженерами, которые делают задачу.</p>
+        <a href="#contact" class="why-cta">Обсудить задачу</a>
+      </div>
+      <div class="why-facts reveal reveal-delay-2">
+        <div class="why-fact">
+          <div class="why-fact-num">4</div>
+          <div class="why-fact-text">направления DevOps под одной крышей</div>
+        </div>
+        <div class="why-fact">
+          <div class="why-fact-num"><em>0</em></div>
+          <div class="why-fact-text">субподрядчиков — только штатные инженеры</div>
+        </div>
+        <div class="why-fact">
+          <div class="why-fact-num">K8s</div>
+          <div class="why-fact-text">оркестрация как основной инструмент, не как опция</div>
+        </div>
+        <div class="why-fact">
+          <div class="why-fact-num"><em>Git</em></div>
+          <div class="why-fact-text">любое изменение в инфраструктуре только через код</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div class="reveal">
+        <p class="section-label">Заявка</p>
+        <h2 class="contact-title">ОБСУДИМ<br /><span>ЗАДАЧУ</span></h2>
+        <p class="contact-text">Расскажите про инфраструктуру и задачу — разберёмся, чем можем помочь, и предложим подход. Работаем с юрлицами, выставляем счёт.</p>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <form action="#" method="POST">
+          <div class="form-group">
+            <label class="form-label" for="name">Имя *</label>
+            <input class="form-input" type="text" id="name" name="name" placeholder="Иван Иванов" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Телефон *</label>
+            <input class="form-input" type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="comment">Комментарий</label>
+            <textarea class="form-input" id="comment" name="comment" placeholder="Стек, задача, текущая ситуация"></textarea>
+          </div>
+          <button type="submit" class="form-submit">Отправить заявку</button>
+          <p class="form-note">Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <a href="https://itcommodity.ru" class="footer-logo">
+      <img src="logo.jpg" alt="IT Commodity" />
+      <span class="footer-logo-text">IT COMMODITY</span>
+    </a>
+    <div class="footer-links">
+      <a href="https://itcommodity.ru/hardware">Оборудование</a>
+      <a href="https://itcommodity.ru/devops">DevOps</a>
+      <a href="https://itcommodity.ru/software">ПО</a>
+      <a href="https://itcommodity.ru/contacts">Контакты</a>
+    </div>
+    <span class="footer-copy">© 2026 IT Commodity</span>
+  </footer>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top = my + 'px';
+    });
+    function animateRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.transform = 'translate(-50%,-50%) scale(2.5)';
+        ring.style.width = '60px';
+        ring.style.height = '60px';
+        ring.style.borderColor = 'rgba(0,200,255,0.6)';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+        ring.style.width = '36px';
+        ring.style.height = '36px';
+        ring.style.borderColor = 'rgba(0,200,255,0.4)';
+      });
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
