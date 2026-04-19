@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Лицензионное ПО — IT Commodity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* === УНИКАЛЬНЫЕ СТИЛИ СТРАНИЦЫ ПО === */
+
+    .hero {
+      position: relative;
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 88px 60px 72px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('software-hero.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.2);
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--bg) 0%, transparent 65%);
+    }
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,200,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,200,255,0.025) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(64px, 9vw, 128px);
+      line-height: 0.92;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.25s forwards;
+      hyphens: none;
+      word-break: keep-all;
+      overflow-wrap: normal;
+    }
+    .hero-title em { color: var(--accent); font-style: normal; }
+    .breadcrumb {
+      opacity: 0;
+      animation: fadeUp 0.7s 0.1s forwards;
+    }
+    .hero-sub {
+      font-size: 16px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.45);
+      max-width: 560px;
+      line-height: 1.75;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.4s forwards;
+    }
+
+    /* CATALOG */
+    .catalog { padding: 100px 60px; }
+    .catalog-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 64px;
+    }
+    .catalog-title {
+      font-family: var(--font-display);
+      font-size: clamp(44px, 5.5vw, 80px);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      hyphens: none;
+      word-break: keep-all;
+    }
+    .catalog-desc {
+      max-width: 340px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.7;
+      text-align: right;
+    }
+
+    .sw-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+    }
+    .sw-card {
+      background: var(--gray3);
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.25s;
+    }
+    .sw-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+    .sw-card:hover { background: #282832; }
+    .sw-card:hover::before { transform: scaleX(1); }
+
+    .sw-card-logo {
+      font-family: var(--font-display);
+      font-size: 28px;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 8px;
+      hyphens: none;
+      word-break: keep-all;
+      line-height: 1.05;
+    }
+    .sw-card-cat {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .sw-card-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.65;
+      flex-grow: 1;
+      margin-bottom: 28px;
+    }
+    .sw-card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid rgba(0,200,255,0.25);
+      padding: 10px 16px;
+      align-self: flex-start;
+      transition: background 0.2s, border-color 0.2s, gap 0.2s;
+    }
+    .sw-card-cta:hover {
+      background: rgba(0,200,255,0.07);
+      border-color: var(--accent);
+      gap: 12px;
+    }
+    .sw-card-cta::after { content: '→'; }
+
+    /* CONTACT */
+    .contact {
+      padding: 120px 60px;
+      background: var(--bg2);
+      position: relative;
+      overflow: hidden;
+    }
+    .contact::before {
+      content: 'ПО';
+      position: absolute;
+      font-family: var(--font-display);
+      font-size: 500px;
+      color: rgba(255,255,255,0.012);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      letter-spacing: 0.05em;
+    }
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+      position: relative;
+      z-index: 2;
+    }
+    .contact-title {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 6vw, 90px);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin-bottom: 24px;
+      hyphens: none;
+      word-break: keep-all;
+    }
+    .contact-title span { color: var(--accent); }
+    .contact-text {
+      font-size: 15px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.75;
+      max-width: 380px;
+    }
+
+    /* АДАПТИВ */
+    @media (max-width: 1024px) {
+      .sw-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+      .catalog-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .catalog-desc { text-align: left; max-width: 100%; }
+    }
+    @media (max-width: 768px) {
+      .hero { padding: 100px 20px 48px; min-height: 70vh; }
+      .catalog { padding: 64px 20px; }
+      .contact { padding: 64px 20px; }
+      .sw-grid { grid-template-columns: 1fr 1fr; }
+      .sw-card { padding: 24px 20px; }
+      .sw-card-logo { font-size: 22px; }
+      .catalog-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .catalog-desc { text-align: left; max-width: 100%; font-size: 13px; }
+    }
+    @media (max-width: 480px) {
+      .sw-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="https://itcommodity.ru/hardware" onclick="closeMobileNav()">Оборудование</a>
+    <a href="https://itcommodity.ru/devops" onclick="closeMobileNav()">DevOps</a>
+    <a href="https://itcommodity.ru/software" onclick="closeMobileNav()">ПО</a>
+    <a href="#contact" class="nav-cta" onclick="closeMobileNav()">Связаться</a>
+  </div>
+
+  <header>
+    <a href="https://itcommodity.ru" class="logo">
+      <img src="logo.jpg" alt="IT Commodity" />
+      <span class="logo-text">IT COMMODITY</span>
+    </a>
+    <nav>
+      <a href="https://itcommodity.ru/hardware">Оборудование</a>
+      <a href="https://itcommodity.ru/devops">DevOps</a>
+      <a href="https://itcommodity.ru/software" class="active">ПО</a>
+      <a href="#contact" class="nav-cta">Связаться</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <p class="breadcrumb">
+        <a href="https://itcommodity.ru">Главная</a>
+        <span>/</span>
+        Лицензионное ПО
+      </p>
+      <h1 class="hero-title">ЛИЦЕНЗИОННОЕ<br /><em>ПО</em></h1>
+      <p class="hero-sub">Официальная поставка лицензионного программного обеспечения. Работаем с юрлицами, выставляем счёт. Российский и зарубежный софт под любые задачи.</p>
+    </div>
+  </section>
+
+  <!-- КАТАЛОГ -->
+  <section class="catalog">
+    <div class="catalog-header reveal">
+      <div>
+        <p class="section-label">Каталог</p>
+        <h2 class="catalog-title">ПРОГРАММНОЕ<br />ОБЕСПЕЧЕНИЕ</h2>
+      </div>
+      <p class="catalog-desc">Официальные лицензии, счёт для юрлиц. Поставляем как отдельно, так и в комплекте с оборудованием.</p>
+    </div>
+
+    <div class="sw-grid">
+
+      <div class="sw-card reveal reveal-delay-1">
+        <div class="sw-card-logo">Microsoft</div>
+        <div class="sw-card-cat">Офисный пакет · ОС · Облако</div>
+        <p class="sw-card-desc">Семейство продуктов Microsoft: Windows, Microsoft 365, Azure, Teams, Exchange и другие корпоративные решения. Лицензирование под любой масштаб.</p>
+        <a href="#contact" class="sw-card-cta">Запросить стоимость</a>
+      </div>
+
+      <div class="sw-card reveal reveal-delay-2">
+        <div class="sw-card-logo">Adobe Systems</div>
+        <div class="sw-card-cat">Дизайн · Медиа · Документы</div>
+        <p class="sw-card-desc">Creative Cloud, Acrobat, Adobe Sign и другие продукты для работы с графикой, видео, документами. Корпоративные лицензии и VIP-программы.</p>
+        <a href="#contact" class="sw-card-cta">Запросить стоимость</a>
+      </div>
+
+      <div class="sw-card reveal reveal-delay-3">
+        <div class="sw-card-logo">Qt</div>
+        <div class="sw-card-cat">Кроссплатформенный фреймворк</div>
+        <p class="sw-card-desc">Кроссплатформенный фреймворк для разработки приложений с графическим интерфейсом. Коммерческие лицензии для встроенных и десктопных решений.</p>
+        <a href="#contact" class="sw-card-cta">Запросить стоимость</a>
+      </div>
+
+      <div class="sw-card reveal reveal-delay-4">
+        <div class="sw-card-logo">Veeam</div>
+        <div class="sw-card-cat">Резервное копирование · DR</div>
+        <p class="sw-card-desc">Решения для резервного копирования, репликации и восстановления данных в виртуальных, физических и облачных средах. Veeam Backup & Replication и другие продукты.</p>
+        <a href="#contact" class="sw-card-cta">Запросить стоимость</a>
+      </div>
+
+      <div class="sw-card reveal reveal-delay-1">
+        <div class="sw-card-logo">Commvault</div>
+        <div class="sw-card-cat">Защита данных · Архивирование</div>
+        <p class="sw-card-desc">Корпоративная платформа управления данными: резервное копирование, архивирование, поиск и восстановление. Поддержка гибридных и мультиоблачных сред.</p>
+        <a href="#contact" class="sw-card-cta">Запросить стоимость</a>
+      </div>
+
+      <div class="sw-card reveal reveal-delay-2">
+        <div class="sw-card-logo">Kaspersky</div>
+        <div class="sw-card-cat">Кибербезопасность · Антивирус</div>
+        <p class="sw-card-desc">Антивирусная защита, EDR, XDR, защита инфраструктуры и конечных точек. Корпоративные решения Kaspersky для бизнеса любого масштаба.</p>
+        <a href="#contact" class="sw-card-cta">Запросить стоимость</a>
+      </div>
+
+      <div class="sw-card reveal reveal-delay-3">
+        <div class="sw-card-logo">РЕД ОС</div>
+        <div class="sw-card-cat">Операционная система · Реестр МПТ</div>
+        <p class="sw-card-desc">Отечественная операционная система на базе Linux. Внесена в реестр российского ПО. Подходит для объектов КИИ и государственных организаций.</p>
+        <a href="#contact" class="sw-card-cta">Запросить стоимость</a>
+      </div>
+
+      <div class="sw-card reveal reveal-delay-4">
+        <div class="sw-card-logo">Dr.Web</div>
+        <div class="sw-card-cat">Кибербезопасность · Антивирус</div>
+        <p class="sw-card-desc">Российская антивирусная защита для рабочих станций, серверов и мобильных устройств. Включён в реестр отечественного ПО, подходит для госструктур.</p>
+        <a href="#contact" class="sw-card-cta">Запросить стоимость</a>
+      </div>
+
+      <div class="sw-card reveal reveal-delay-1">
+        <div class="sw-card-logo">МойОфис</div>
+        <div class="sw-card-cat">Офисный пакет · Реестр МПТ</div>
+        <p class="sw-card-desc">Российский офисный пакет: текстовый редактор, таблицы, презентации, почта. Альтернатива Microsoft Office для импортозамещения в корпоративном сегменте.</p>
+        <a href="#contact" class="sw-card-cta">Запросить стоимость</a>
+      </div>
+
+      <div class="sw-card reveal reveal-delay-2">
+        <div class="sw-card-logo">UserGate</div>
+        <div class="sw-card-cat">Межсетевой экран · NGFW</div>
+        <p class="sw-card-desc">Российский межсетевой экран нового поколения. Фильтрация трафика, VPN, IDS/IPS, контроль приложений. Включён в реестр отечественного ПО.</p>
+        <a href="#contact" class="sw-card-cta">Запросить стоимость</a>
+      </div>
+
+      <div class="sw-card reveal reveal-delay-3">
+        <div class="sw-card-logo">CommuniGate Pro</div>
+        <div class="sw-card-cat">Коммуникации · Почта · UC</div>
+        <p class="sw-card-desc">Унифицированная коммуникационная платформа: корпоративная почта, календарь, мессенджер, видеоконференции. Развёртывание на собственных серверах.</p>
+        <a href="#contact" class="sw-card-cta">Запросить стоимость</a>
+      </div>
+
+      <div class="sw-card reveal reveal-delay-4">
+        <div class="sw-card-logo">Archicad</div>
+        <div class="sw-card-cat">BIM · Проектирование</div>
+        <p class="sw-card-desc">Профессиональное BIM-решение для архитекторов и проектировщиков. Трёхмерное моделирование, документация, совместная работа над проектом.</p>
+        <a href="#contact" class="sw-card-cta">Запросить стоимость</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div class="reveal">
+        <p class="section-label">Заявка</p>
+        <h2 class="contact-title">ЗАПРОСИТЬ<br /><span>СТОИМОСТЬ</span></h2>
+        <p class="contact-text">Уточним нужный продукт, тип лицензии и количество мест. Выставляем счёт для юрлиц, работаем с корпоративными заказчиками и госструктурами.</p>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <form action="#" method="POST">
+          <div class="form-group">
+            <label class="form-label" for="name">Имя *</label>
+            <input class="form-input" type="text" id="name" name="name" placeholder="Иван Иванов" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Телефон *</label>
+            <input class="form-input" type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="comment">Комментарий</label>
+            <textarea class="form-input" id="comment" name="comment" placeholder="Продукт, количество лицензий, срок"></textarea>
+          </div>
+          <button type="submit" class="form-submit">Отправить заявку</button>
+          <p class="form-note">Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <a href="https://itcommodity.ru" class="footer-logo">
+      <img src="logo.jpg" alt="IT Commodity" />
+      <span class="footer-logo-text">IT COMMODITY</span>
+    </a>
+    <div class="footer-links">
+      <a href="https://itcommodity.ru/hardware">Оборудование</a>
+      <a href="https://itcommodity.ru/devops">DevOps</a>
+      <a href="https://itcommodity.ru/software">ПО</a>
+      <a href="https://itcommodity.ru/contacts">Контакты</a>
+    </div>
+    <span class="footer-copy">© 2026 IT Commodity</span>
+  </footer>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top = my + 'px';
+    });
+    function animateRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.transform = 'translate(-50%,-50%) scale(2.5)';
+        ring.style.width = '60px';
+        ring.style.height = '60px';
+        ring.style.borderColor = 'rgba(0,200,255,0.6)';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+        ring.style.width = '36px';
+        ring.style.height = '36px';
+        ring.style.borderColor = 'rgba(0,200,255,0.4)';
+      });
+    });
+
+    const burger = document.getElementById('burger');
+    const mobileNav = document.getElementById('mobileNav');
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+      document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+    });
+    function closeMobileNav() {
+      burger.classList.remove('open');
+      mobileNav.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
