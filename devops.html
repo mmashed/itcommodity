@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevOps — IT Commodity</title>
+  <meta name="description" content="Собственная DevOps-команда без субподряда. CI/CD, Kubernetes, IaC, мониторинг — под ключ от брифинга до поддержки." />
+
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="/assets/css/header.css" />
+  <link rel="stylesheet" href="/assets/css/footer.css" />
+  <link rel="stylesheet" href="/assets/css/form.css" />
+  <link rel="stylesheet" href="/assets/css/devops.css" />
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <div id="header-placeholder"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <p class="breadcrumb">
+        <a href="/">Главная</a>
+        <span>/</span>
+        DevOps
+      </p>
+      <h1 class="hero-title">DEVOPS<br /><em>КОМАНДА</em></h1>
+      <p class="hero-sub">Своя команда на зарплате — без субподряда и посредников. CI/CD, Kubernetes, IaC, мониторинг. Берём инфраструктуру под ключ от брифинга до поддержки.</p>
+    </div>
+  </section>
+
+  <!-- НАПРАВЛЕНИЯ -->
+  <section class="services">
+    <div class="services-header reveal">
+      <div>
+        <p class="section-label">Направления</p>
+        <h2 class="services-title">ЧТО МЫ<br />ДЕЛАЕМ</h2>
+      </div>
+      <p class="services-desc">Четыре направления, которые закрывают полный цикл DevOps-задач корпоративного заказчика.</p>
+    </div>
+
+    <div class="service-blocks">
+
+      <div class="service-block reveal reveal-delay-1">
+        <div class="service-block-num">01</div>
+        <h3 class="service-block-title">CI/CD</h3>
+        <p class="service-block-desc">Выстраиваем пайплайны непрерывной интеграции и доставки. Код превращается в работающий продукт без ручного вмешательства: сборка, тестирование, деплой — всё автоматически. Поддержка Blue-Green и Canary-релизов, автоматический откат при падении тестов.</p>
+        <div class="service-block-stack">
+          <p class="stack-label">Стек</p>
+          <div class="stack-items">
+            <span class="stack-item hi">GitLab CI/CD</span>
+            <span class="stack-item hi">GitHub Actions</span>
+            <span class="stack-item">Jenkins</span>
+            <span class="stack-item">TeamCity</span>
+            <span class="stack-item">Docker</span>
+            <span class="stack-item">SonarQube</span>
+            <span class="stack-item">Nexus</span>
+            <span class="stack-item">Artifactory</span>
+            <span class="stack-item">Snyk</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-block reveal reveal-delay-2">
+        <div class="service-block-num">02</div>
+        <h3 class="service-block-title">Инфраструктура и IaC</h3>
+        <p class="service-block-desc">Описываем и управляем инфраструктурой как кодом. Любое изменение — через Git, никаких ручных правок на серверах. Дрифт-контроль, автомасштабирование, полная воспроизводимость окружений. Работаем с Yandex Cloud, Selectel и on-premise.</p>
+        <div class="service-block-stack">
+          <p class="stack-label">Стек</p>
+          <div class="stack-items">
+            <span class="stack-item hi">Terraform</span>
+            <span class="stack-item hi">Ansible</span>
+            <span class="stack-item">Chef</span>
+            <span class="stack-item">Puppet</span>
+            <span class="stack-item">Checkov</span>
+            <span class="stack-item">Terrascan</span>
+            <span class="stack-item">Molecule</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-block reveal reveal-delay-3">
+        <div class="service-block-num">03</div>
+        <h3 class="service-block-title">Контейнеризация и K8s</h3>
+        <p class="service-block-desc">Контейнеризируем приложения, разворачиваем и обслуживаем Kubernetes-кластеры. Настраиваем HPA и Cluster Autoscaler, изолируем окружения через Namespaces, выстраиваем GitOps через ArgoCD. Управление конфигурациями через Helm.</p>
+        <div class="service-block-stack">
+          <p class="stack-label">Стек</p>
+          <div class="stack-items">
+            <span class="stack-item hi">Kubernetes</span>
+            <span class="stack-item hi">Helm</span>
+            <span class="stack-item hi">Docker</span>
+            <span class="stack-item">ArgoCD</span>
+            <span class="stack-item">Flux</span>
+            <span class="stack-item">Kustomize</span>
+            <span class="stack-item">Istio</span>
+            <span class="stack-item">Ingress Nginx</span>
+            <span class="stack-item">Containerd</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-block reveal reveal-delay-4">
+        <div class="service-block-num">04</div>
+        <h3 class="service-block-title">Мониторинг и логирование</h3>
+        <p class="service-block-desc">Настраиваем полный observability-стек: метрики, логи, трейсинг. Дашборды в Grafana, алерты в Telegram или PagerDuty, трейсинг запросов через все микросервисы. Считаем SLA/SLO/SLI и предоставляем отчёты по доступности.</p>
+        <div class="service-block-stack">
+          <p class="stack-label">Стек</p>
+          <div class="stack-items">
+            <span class="stack-item hi">Prometheus</span>
+            <span class="stack-item hi">Grafana</span>
+            <span class="stack-item">Zabbix</span>
+            <span class="stack-item">ELK Stack</span>
+            <span class="stack-item">Loki</span>
+            <span class="stack-item">Jaeger</span>
+            <span class="stack-item">Alertmanager</span>
+            <span class="stack-item">Filebeat</span>
+            <span class="stack-item">Vector</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- КАК МЫ РАБОТАЕМ -->
+  <section class="process">
+    <div class="process-header reveal">
+      <div>
+        <p class="section-label">Процесс</p>
+        <h2 class="process-title">КАК МЫ<br />РАБОТАЕМ</h2>
+      </div>
+      <p class="process-desc">Фиксированный процесс на каждом проекте. Заказчик знает, что происходит на каждом этапе.</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-step reveal reveal-delay-1">
+        <div class="process-step-num">01</div>
+        <h3 class="process-step-title">Брифинг</h3>
+        <p class="process-step-text">Разбираемся в задаче: стек, масштаб, требования к доступности, текущее состояние инфраструктуры. Фиксируем цели и ограничения.</p>
+        <div class="process-step-line"></div>
+      </div>
+      <div class="process-step reveal reveal-delay-2">
+        <div class="process-step-num">02</div>
+        <h3 class="process-step-title">Аудит</h3>
+        <p class="process-step-text">Смотрим что есть сейчас: пайплайны, инфраструктура, мониторинг. Находим узкие места и готовим план работ с приоритетами.</p>
+        <div class="process-step-line"></div>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <div class="process-step-num">03</div>
+        <h3 class="process-step-title">Внедрение</h3>
+        <p class="process-step-text">Реализуем согласованный план. Всё через Git, документируем по ходу, не ломаем то что работает. Поэтапная миграция без простоев.</p>
+        <div class="process-step-line"></div>
+      </div>
+      <div class="process-step reveal reveal-delay-4">
+        <div class="process-step-num">04</div>
+        <h3 class="process-step-title">Поддержка</h3>
+        <p class="process-step-text">После сдачи остаёмся на проекте: инциденты, обновления, масштабирование. Инфраструктура живёт и развивается вместе с продуктом.</p>
+        <div class="process-step-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ПОЧЕМУ МЫ -->
+  <section class="why">
+    <div class="why-inner">
+      <div class="reveal">
+        <p class="section-label">Почему мы</p>
+        <h2 class="why-title">СВОЯ КОМАНДА —<br /><em>БЕЗ</em> ПОСРЕДНИКОВ</h2>
+        <p class="why-text">Все специалисты в штате. Мы не перепродаём субподрядчиков и не добавляем маржу поверх чужой работы. Заказчик работает напрямую с инженерами, которые делают задачу.</p>
+        <a href="#contact" class="why-cta">Обсудить задачу</a>
+      </div>
+      <div class="why-facts reveal reveal-delay-2">
+        <div class="why-fact">
+          <div class="why-fact-num">4</div>
+          <div class="why-fact-text">направления DevOps под одной крышей</div>
+        </div>
+        <div class="why-fact">
+          <div class="why-fact-num"><em>0</em></div>
+          <div class="why-fact-text">субподрядчиков — только штатные инженеры</div>
+        </div>
+        <div class="why-fact">
+          <div class="why-fact-num">K8s</div>
+          <div class="why-fact-text">оркестрация как основной инструмент, не как опция</div>
+        </div>
+        <div class="why-fact">
+          <div class="why-fact-num"><em>Git</em></div>
+          <div class="why-fact-text">любое изменение в инфраструктуре только через код</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div class="reveal">
+        <p class="section-label">Заявка</p>
+        <h2 class="contact-title">ОБСУДИМ<br /><span>ЗАДАЧУ</span></h2>
+        <p class="contact-text">Расскажите про инфраструктуру и задачу — разберёмся, чем можем помочь, и предложим подход. Работаем с юрлицами, выставляем счёт.</p>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <form data-contact>
+          <div class="form-group">
+            <label class="form-label" for="name">Имя *</label>
+            <input class="form-input" type="text" id="name" name="name" placeholder="Иван Иванов" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Телефон *</label>
+            <input class="form-input" type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="comment">Комментарий</label>
+            <textarea class="form-input" id="comment" name="comment" placeholder="Стек, задача, текущая ситуация"></textarea>
+          </div>
+          <button type="submit" class="form-submit">Отправить заявку</button>
+          <div class="form-status" role="alert"></div>
+          <p class="form-note">Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="/assets/js/components.js"></script>
+  <script src="/assets/js/cursor.js"></script>
+  <script src="/assets/js/reveal.js"></script>
+  <script src="/assets/js/form.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IT Commodity — российское IT-оборудование и решения</title>
+  <meta name="description" content="Серверное оборудование Мультиллект, DevOps-команда и лицензионное ПО. Импортозамещение под ключ." />
+
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="/assets/css/header.css" />
+  <link rel="stylesheet" href="/assets/css/footer.css" />
+  <link rel="stylesheet" href="/assets/css/form.css" />
+  <link rel="stylesheet" href="/assets/css/index.css" />
+</head>
+<body>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <!-- HEADER (подгружается через components.js) -->
+  <div id="header-placeholder"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-tag">Российское IT-оборудование и решения</p>
+      <h1 class="hero-title">
+        IT<br />
+        COMMO<span>DITY</span>
+      </h1>
+      <p class="hero-sub">
+        Серверное оборудование, DevOps-команда и лицензионное ПО — всё под одной крышей. Импортозамещение без компромиссов.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Получить консультацию</a>
+        <a href="#directions" class="btn-ghost">Направления</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- DIRECTIONS -->
+  <section class="directions" id="directions">
+    <div class="directions-header reveal">
+      <div>
+        <p class="section-label">Направления</p>
+        <h2 class="directions-title">ЧТО МЫ<br />ДЕЛАЕМ</h2>
+      </div>
+      <p class="directions-desc">
+        Три направления деятельности, которые закрывают потребности корпоративного заказчика в IT-инфраструктуре полностью.
+      </p>
+    </div>
+
+    <div class="dir-cards">
+      <a href="/hardware" class="dir-card reveal reveal-delay-1">
+        <div class="dir-card-bg" style="background-image: url('/assets/img/dir-hardware.jpg')"></div>
+        <div class="dir-card-overlay"></div>
+        <div class="dir-card-accent"></div>
+        <div class="dir-card-content">
+          <div class="dir-card-num">01</div>
+          <h3 class="dir-card-title">ОБОРУДОВАНИЕ</h3>
+          <p class="dir-card-text">Серверы Мультиллект в реестре Минпромторга. Производство в Калуге, совместимость с КИИ, поставка под ключ.</p>
+          <span class="dir-card-link">Подробнее</span>
+        </div>
+      </a>
+
+      <a href="/devops" class="dir-card reveal reveal-delay-2">
+        <div class="dir-card-bg" style="background-image: url('/assets/img/dir-devops.jpg')"></div>
+        <div class="dir-card-overlay"></div>
+        <div class="dir-card-accent"></div>
+        <div class="dir-card-content">
+          <div class="dir-card-num">02</div>
+          <h3 class="dir-card-title">DEVOPS<br>КОМАНДА</h3>
+          <p class="dir-card-text">CI/CD, оркестрация Kubernetes, IaC, мониторинг. Собственная команда на зарплате — без субподряда.</p>
+          <span class="dir-card-link">Подробнее</span>
+        </div>
+      </a>
+
+      <a href="/software" class="dir-card reveal reveal-delay-3">
+        <div class="dir-card-bg" style="background-image: url('/assets/img/dir-software.jpg')"></div>
+        <div class="dir-card-overlay"></div>
+        <div class="dir-card-accent"></div>
+        <div class="dir-card-content">
+          <div class="dir-card-num">03</div>
+          <h3 class="dir-card-title">ЛИЦЕНЗИОННОЕ<br>ПО</h3>
+          <p class="dir-card-text">Kaspersky, МойОфис, РЕД ОС, Veeam, UserGate и другие. Официальная поставка, счёт для юрлиц.</p>
+          <span class="dir-card-link">Подробнее</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="trust">
+    <div class="trust-inner">
+      <div class="trust-left reveal">
+        <p class="section-label">Почему мы</p>
+        <h2 class="trust-title">РОССИЙСКОЕ<br />ПРОИЗВОДСТВО</h2>
+        <p class="trust-text">
+          Серверы Мультиллект внесены в реестр Российской промышленной продукции Минпромторга. Производство в Калуге, 70 000 м² площадки, четыре линии автоматизированной сборки.
+        </p>
+        <div class="mpt-badge">
+          <div class="mpt-badge-icon"></div>
+          <p class="mpt-badge-text">
+            <strong>Реестр Минпромторга РФ</strong><br />
+            № 10726806 · ГИСП · 16.10.2025
+          </p>
+        </div>
+        <div style="display:flex; gap:16px; margin-top:32px; flex-wrap:wrap;">
+          <a href="/hardware" class="btn-primary">Подробнее об оборудовании</a>
+          <a href="#contact" class="btn-ghost">Запросить КП</a>
+        </div>
+      </div>
+      <div class="trust-right reveal reveal-delay-2">
+        <div class="trust-stats">
+          <div class="trust-stat">
+            <div class="trust-stat-num">70<span>K</span></div>
+            <div class="trust-stat-label">м² производственной<br />площадки в Калуге</div>
+          </div>
+          <div class="trust-stat">
+            <div class="trust-stat-num">4</div>
+            <div class="trust-stat-label">линии автоматизированной<br />сборки</div>
+          </div>
+          <div class="trust-stat">
+            <div class="trust-stat-num">3</div>
+            <div class="trust-stat-label">направления деятельности<br />под одной крышей</div>
+          </div>
+          <div class="trust-stat">
+            <div class="trust-stat-num">24<span>×7</span></div>
+            <div class="trust-stat-label">сервисная поддержка<br />в пакете Премьер</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trust-vendors reveal">
+      <div class="trust-vendors-header">
+        <div>
+          <p class="section-label">Лицензионное ПО</p>
+          <h3 class="trust-vendors-title">ПОСТАВЛЯЕМЫЙ<br />СОФТ</h3>
+        </div>
+        <p class="trust-vendors-desc">Официальная поставка, счёт для юрлиц. Работаем с корпоративными заказчиками и госструктурами.</p>
+      </div>
+      <div class="vendors-row">
+        <span class="vendor-logo">Microsoft</span>
+        <span class="vendor-logo">Kaspersky</span>
+        <span class="vendor-logo">Veeam</span>
+        <span class="vendor-logo">МойОфис</span>
+        <span class="vendor-logo">UserGate</span>
+        <span class="vendor-logo">Dr.Web</span>
+        <span class="vendor-logo">РЕД ОС</span>
+        <span class="vendor-logo">CommuniGate Pro</span>
+        <span class="vendor-logo">Adobe</span>
+        <span class="vendor-logo">Commvault</span>
+        <span class="vendor-logo">Qt</span>
+        <span class="vendor-logo">Archicad</span>
+      </div>
+      <div style="display:flex; gap:16px; margin-top:40px; flex-wrap:wrap;">
+        <a href="/software" class="btn-primary">Весь каталог ПО</a>
+        <a href="#contact" class="btn-ghost">Запросить стоимость</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div class="contact-left reveal">
+        <p class="section-label">Заявка</p>
+        <h2 class="contact-title">ОСТАВЬТЕ<br /><span>ЗАЯВКУ</span></h2>
+        <p class="contact-text">
+          Перезвоним в рабочее время, уточним задачу и предложим решение. Без навязчивых продаж.
+        </p>
+      </div>
+      <div class="contact-right reveal reveal-delay-2">
+        <form data-contact>
+          <div class="form-group">
+            <label class="form-label" for="name">Имя *</label>
+            <input class="form-input" type="text" id="name" name="name" placeholder="Иван Иванов" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Телефон *</label>
+            <input class="form-input" type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="comment">Комментарий</label>
+            <textarea class="form-input" id="comment" name="comment" placeholder="Расскажите о задаче"></textarea>
+          </div>
+          <button type="submit" class="form-submit">Отправить заявку</button>
+          <div class="form-status" role="alert"></div>
+          <p class="form-note">Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER (подгружается через components.js) -->
+  <div id="footer-placeholder"></div>
+
+  <script src="/assets/js/components.js"></script>
+  <script src="/assets/js/cursor.js"></script>
+  <script src="/assets/js/reveal.js"></script>
+  <script src="/assets/js/form.js"></script>
+
+</body>
+</html>
