@@ -1,0 +1,181 @@
+/* =============================================================
+   FORM — секция контакта + стили полей
+   Используется на всех страницах где есть форма заявки
+   ============================================================= */
+
+.contact {
+  padding:   var(--section-py) var(--page-px);
+  background: var(--bg);
+  position:  relative;
+  overflow:  hidden;
+}
+
+.contact::before {
+  content:        'СВЯЗАТЬСЯ';
+  position:       absolute;
+  font-family:    var(--font-display);
+  font-size:      clamp(120px, 18vw, 240px);
+  color:          rgba(255, 255, 255, 0.015);
+  top:            50%;
+  left:           50%;
+  transform:      translate(-50%, -50%);
+  white-space:    nowrap;
+  pointer-events: none;
+  letter-spacing: 0.05em;
+  user-select:    none;
+}
+
+.contact-inner {
+  display:     grid;
+  grid-template-columns: 1fr 1fr;
+  gap:         100px;
+  align-items: start;
+  position:    relative;
+  z-index:     2;
+}
+
+.contact-title {
+  font-family:    var(--font-display);
+  font-size:      clamp(48px, 6vw, 90px);
+  line-height:    0.95;
+  letter-spacing: 0.02em;
+  margin-bottom:  24px;
+}
+.contact-title span { color: var(--accent); }
+
+.contact-text {
+  font-size:   15px;
+  color:       rgba(255, 255, 255, 0.4);
+  line-height: 1.75;
+  max-width:   380px;
+}
+
+/* ----------------------------------------------------------
+   ПОЛЯ
+   ---------------------------------------------------------- */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display:        block;
+  font-size:      10px;
+  font-weight:    500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color:          rgba(255, 255, 255, 0.35);
+  margin-bottom:  10px;
+}
+
+.form-input {
+  width:       100%;
+  background:  var(--gray2);
+  border:      1px solid rgba(255, 255, 255, 0.07);
+  color:       var(--white);
+  font-family: var(--font-body);
+  font-size:   15px;
+  font-weight: 300;
+  padding:     16px 20px;
+  outline:     none;
+  transition:  border-color 0.2s, background 0.2s;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+.form-input:focus {
+  border-color: var(--accent);
+  background:   rgba(0, 200, 255, 0.03);
+}
+.form-input::placeholder { color: rgba(255, 255, 255, 0.2); }
+.form-input:invalid:not(:placeholder-shown) {
+  border-color: rgba(255, 80, 80, 0.5);
+}
+
+textarea.form-input {
+  resize:     vertical;
+  min-height: 120px;
+}
+
+/* ----------------------------------------------------------
+   КНОПКА ОТПРАВКИ
+   ---------------------------------------------------------- */
+.form-submit {
+  margin-top:     8px;
+  width:          100%;
+  background:     var(--accent);
+  color:          var(--bg);
+  font-family:    var(--font-body);
+  font-size:      13px;
+  font-weight:    700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding:        18px;
+  border:         none;
+  cursor:         none;
+  transition:     background 0.2s, transform 0.2s, opacity 0.2s;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  position: relative;
+}
+.form-submit:hover    { background: var(--accent-hover); transform: translateY(-2px); }
+.form-submit:disabled { opacity: 0.5; transform: none; pointer-events: none; }
+
+@media (hover: none) {
+  .form-submit { cursor: pointer; }
+}
+
+/* состояния кнопки */
+.form-submit[data-state="loading"]::after {
+  content:     '';
+  position:    absolute;
+  right:       20px;
+  top:         50%;
+  transform:   translateY(-50%);
+  width:       14px;
+  height:      14px;
+  border:      2px solid rgba(13, 13, 13, 0.3);
+  border-top-color: var(--bg);
+  border-radius: 50%;
+  animation:   spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* ----------------------------------------------------------
+   СТАТУС ПОСЛЕ ОТПРАВКИ
+   ---------------------------------------------------------- */
+.form-status {
+  margin-top:  16px;
+  font-size:   13px;
+  line-height: 1.6;
+  min-height:  20px;
+  transition:  opacity 0.3s;
+}
+.form-status.success { color: var(--accent); }
+.form-status.error   { color: rgba(255, 80, 80, 0.9); }
+
+.form-note {
+  margin-top:  14px;
+  font-size:   11px;
+  color:       rgba(255, 255, 255, 0.2);
+  line-height: 1.6;
+}
+
+/* ----------------------------------------------------------
+   АДАПТИВ
+   ---------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .contact-inner { gap: 60px; }
+}
+
+@media (max-width: 768px) {
+  .contact-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .contact::before { display: none; }
+
+  .form-input  { font-size: 16px; /* предотвращает zoom на iOS */ }
+  .form-submit { cursor: pointer; }
+}
