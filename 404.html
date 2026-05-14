@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — IT Commodity</title>
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="/assets/css/header.css" />
+  <link rel="stylesheet" href="/assets/css/footer.css" />
+  <style>
+    .not-found {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 60vh;
+      text-align: center;
+      padding: 2rem;
+    }
+    .not-found__code {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(6rem, 20vw, 12rem);
+      line-height: 1;
+      color: var(--accent, #e63946);
+      margin: 0;
+    }
+    .not-found__text {
+      font-size: 1.25rem;
+      color: var(--text-muted, #aaa);
+      margin: 1rem 0 2rem;
+    }
+    .not-found__link {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      border: 1px solid currentColor;
+      color: var(--text, #fff);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: opacity 0.2s;
+    }
+    .not-found__link:hover { opacity: 0.7; }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="not-found">
+    <p class="not-found__code">404</p>
+    <p class="not-found__text">Страница не найдена</p>
+    <a class="not-found__link" href="/">На главную</a>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="/assets/js/components.js"></script>
+</body>
+</html>

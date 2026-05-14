@@ -1,0 +1,22 @@
+RewriteEngine On
+DirectorySlash Off
+
+# cleanUrls: serve .html without extension
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html [L]
+
+# trailingSlash: false — redirect /path/ → /path
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.+)/$ /$1 [R=301,L]
+
+ErrorDocument 404 /404.html
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(woff2|woff|ttf|eot)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    <FilesMatch "\.(css|js|jpg|jpeg|png|gif|ico|webp|svg)$">
+        Header set Cache-Control "public, max-age=86400"
+    </FilesMatch>
+</IfModule>
