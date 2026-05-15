@@ -31,10 +31,19 @@
 
      ---------------------------------------------------------- */
   function sendToApi(data) {
-    // ЗАГЛУШКА — удалить после подключения реального эндпоинта
-    console.log('[form.js] sendToApi — заглушка, данные:', data);
-    return new Promise(function (resolve) {
-      setTimeout(resolve, 800); // имитация задержки сети
+    return fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        access_key: 'fbdafc8c-0790-48d3-a648-21c85f354bbc',
+        name:    data.name,
+        phone:   data.phone,
+        message: data.comment,
+        subject: 'Заявка с сайта: ' + data.page
+      })
+    }).then(function (res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
     });
   }
   /* ----------------------------------------------------------
