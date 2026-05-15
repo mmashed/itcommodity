@@ -87,31 +87,81 @@
   }
 
   /* ----------------------------------------------------------
-     Маска телефона +7 (XXX) XXX-XX-XX
+     Маска телефона +7 (___) ___-__-__
      ---------------------------------------------------------- */
-  function applyPhoneMask(input) {
-    var digits = input.value.replace(/\D/g, '');
-    if (digits.length && (digits[0] === '7' || digits[0] === '8')) {
-      digits = digits.slice(1);
+  var PHONE_MASK   = '+7 (___) ___-__-__';
+  var DIGIT_SLOTS  = [4, 5, 6, 9, 10, 11, 13, 14, 16, 17];
+
+  function buildMasked(digits) {
+    var chars = PHONE_MASK.split('');
+    for (var i = 0; i < digits.length; i++) {
+      chars[DIGIT_SLOTS[i]] = digits[i];
     }
-    digits = digits.slice(0, 10);
+    return chars.join('');
+  }
 
-    if (!digits.length) { input.value = ''; return; }
+  function getDigits(val) {
+    var d = '';
+    for (var i = 0; i < DIGIT_SLOTS.length; i++) {
+      var ch = (val || '')[DIGIT_SLOTS[i]];
+      if (!ch || ch === '_') break;
+      d += ch;
+    }
+    return d;
+  }
 
-    var val = '+7';
-    val += ' (' + digits.slice(0, 3);
-    if (digits.length >= 3) val += ') ' + digits.slice(3, 6);
-    if (digits.length >= 6) val += '-' + digits.slice(6, 8);
-    if (digits.length >= 8) val += '-' + digits.slice(8, 10);
-
-    input.value = val;
+  function placeCursor(inp, digits) {
+    var pos = digits.length < DIGIT_SLOTS.length
+      ? DIGIT_SLOTS[digits.length]
+      : PHONE_MASK.length;
+    inp.setSelectionRange(pos, pos);
   }
 
   function initPhoneMask(form) {
-    var phoneInput = form.querySelector('[name="phone"]');
-    if (!phoneInput) return;
-    phoneInput.addEventListener('input', function () {
-      applyPhoneMask(phoneInput);
+    var inp = form.querySelector('[name="phone"]');
+    if (!inp) return;
+
+    inp.addEventListener('focus', function () {
+      if (!inp.value) inp.value = PHONE_MASK;
+      var d = getDigits(inp.value);
+      placeCursor(inp, d);
+    });
+
+    inp.addEventListener('keydown', function (e) {
+      if (e.key === 'Tab') return;
+      e.preventDefault();
+
+      var d = getDigits(inp.value || PHONE_MASK);
+
+      if (e.key === 'Backspace') {
+        d = d.slice(0, -1);
+        inp.value = buildMasked(d);
+        inp.setCustomValidity(d.length && d.length < 10 ? 'Введите номер полностью' : '');
+        placeCursor(inp, d);
+        return;
+      }
+
+      if (!/^\d$/.test(e.key) || d.length >= 10) return;
+
+      d += e.key;
+      inp.value = buildMasked(d);
+      inp.setCustomValidity(d.length < 10 ? 'Введите номер полностью' : '');
+      placeCursor(inp, d);
+    });
+
+    inp.addEventListener('paste', function (e) {
+      e.preventDefault();
+      var raw = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
+      if (raw[0] === '7' || raw[0] === '8') raw = raw.slice(1);
+      var d = raw.slice(0, 10);
+      inp.value = buildMasked(d);
+      inp.setCustomValidity(d.length < 10 ? 'Введите номер полностью' : '');
+      placeCursor(inp, d);
+    });
+
+    inp.addEventListener('blur', function () {
+      var d = getDigits(inp.value || '');
+      if (!d.length) inp.value = '';
     });
   }
 
