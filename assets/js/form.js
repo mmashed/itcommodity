@@ -87,11 +87,42 @@
   }
 
   /* ----------------------------------------------------------
+     Маска телефона +7 (XXX) XXX-XX-XX
+     ---------------------------------------------------------- */
+  function applyPhoneMask(input) {
+    var digits = input.value.replace(/\D/g, '');
+    if (digits.length && (digits[0] === '7' || digits[0] === '8')) {
+      digits = digits.slice(1);
+    }
+    digits = digits.slice(0, 10);
+
+    if (!digits.length) { input.value = ''; return; }
+
+    var val = '+7';
+    val += ' (' + digits.slice(0, 3);
+    if (digits.length >= 3) val += ') ' + digits.slice(3, 6);
+    if (digits.length >= 6) val += '-' + digits.slice(6, 8);
+    if (digits.length >= 8) val += '-' + digits.slice(8, 10);
+
+    input.value = val;
+  }
+
+  function initPhoneMask(form) {
+    var phoneInput = form.querySelector('[name="phone"]');
+    if (!phoneInput) return;
+    phoneInput.addEventListener('input', function () {
+      applyPhoneMask(phoneInput);
+    });
+  }
+
+  /* ----------------------------------------------------------
      Инициализация одной формы
      ---------------------------------------------------------- */
   function initForm(form) {
     var submitBtn = form.querySelector('.form-submit');
     var statusEl  = form.querySelector('.form-status');
+
+    initPhoneMask(form);
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
