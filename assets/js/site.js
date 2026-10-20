@@ -261,6 +261,22 @@
     });
   }
 
+  /* ----------------------------------------------------------
+     Московское время в карточках представительств
+     ---------------------------------------------------------- */
+  function initClocks() {
+    var clocks = document.querySelectorAll('[data-clock]');
+    if (!clocks.length || !window.Intl) return;
+    var fmt = new Intl.DateTimeFormat('ru-RU', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Moscow' });
+
+    function tick() {
+      var t = fmt.format(new Date());
+      clocks.forEach(function (el) { el.textContent = t; });
+    }
+    tick();
+    setInterval(tick, 15000);
+  }
+
   function init() {
     initHeader();
     initMobileNav();
@@ -272,6 +288,12 @@
     initFilters();
     initProductLinks();
     initCopy();
+    initClocks();
+
+    // SMIL-анимацию маршрута CSS не останавливает
+    if (reduceMotion) {
+      document.querySelectorAll('.route__packet').forEach(function (el) { el.remove(); });
+    }
   }
 
   if (document.readyState === 'loading') {
