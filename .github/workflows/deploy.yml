@@ -21,4 +21,6 @@ jobs:
             **/.git*
             **/.git*/**
             vercel.json
+            .mcp.json
+            **/.claude/**
             перенос-vercel-на-beget.md
