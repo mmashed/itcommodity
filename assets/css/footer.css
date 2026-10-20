@@ -4,6 +4,7 @@
 
 .site-footer {
   background:  var(--dark);
+  border-top:  1px solid var(--line);
   color:       #c9ced4;
   padding-top: clamp(48px, 6vw, 72px);
   font-size:   16px;

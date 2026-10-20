@@ -21,27 +21,34 @@
 
 
 /* =============================================================
-   ЦВЕТА
-   Контраст на белом: --text 17:1, --text-2 8:1, --text-3 4.9:1,
-   --brand 5.9:1 (и белый текст на --brand)
+   ЦВЕТА — тёмная тема
+   Контраст на --bg: --text 16:1, --text-2 9:1, --text-3 5.6:1,
+   --brand 8:1; текст на кнопке (--on-brand на --brand) 8:1
    ============================================================= */
 :root {
-  --bg:        #ffffff;
-  --bg-2:      #f3f5f7;
-  --line:      #e2e6ea;
-  --line-2:    #cfd5db;
+  color-scheme: dark;
 
-  --text:      #12161b;
-  --text-2:    #434b55;
-  --text-3:    #68717c;
+  --bg:        #0f1216;
+  --bg-2:      #161a1f;
+  --line:      #262c33;
+  --line-2:    #38414b;
 
-  --brand:       #0866a8;
-  --brand-hover: #06528a;
-  --brand-soft:  #e8f2fa;
+  --text:      #eef1f4;
+  --text-2:    #b6bec7;
+  --text-3:    #8f98a2;
 
-  --dark:      #101419;
-  --danger:    #c62828;
-  --success:   #1b7f4b;
+  --brand:       #5cb8f5;
+  --brand-hover: #86cbf8;
+  --brand-soft:  rgba(92, 184, 245, 0.12);
+  --on-brand:    #08131c;
+
+  --dark:        #0a0c0f;
+  --header-bg:   rgba(15, 18, 22, 0.94);
+  --placeholder: #7d8691;
+  --focus-ring:  rgba(92, 184, 245, 0.25);
+  --danger:      #ff7b72;
+  --success:     #4cc38a;
+  --success-bg:  rgba(76, 195, 138, 0.12);
 
   --font: 'Golos Text', 'Segoe UI', Roboto, Arial, sans-serif;
 
@@ -93,7 +100,7 @@ ul, ol   { list-style: none; }
   top:        -100px;
   z-index:    2000;
   background: var(--brand);
-  color:      #fff;
+  color:      var(--on-brand);
   padding:    10px 16px;
   border-radius: var(--radius);
 }
@@ -120,7 +127,8 @@ ul, ol   { list-style: none; }
 
 .section       { padding-block: var(--section-py); }
 .section--gray { background: var(--bg-2); }
-.section + .section:not(.section--gray) { border-top: 1px solid var(--line); }
+.section + .section:not(.section--gray),
+.section--gray + .section:not(.section--gray) { border-top: 1px solid var(--line); }
 .section--gray + .section--gray { border-top: 1px solid var(--line); }
 
 .section-intro { max-width: 760px; margin-bottom: clamp(32px, 5vw, 56px); }
@@ -164,7 +172,7 @@ ul, ol   { list-style: none; }
 .text-link {
   color:                 var(--brand);
   text-decoration:       underline;
-  text-decoration-color: rgba(8, 102, 168, 0.35);
+  text-decoration-color: rgba(92, 184, 245, 0.4);
   text-underline-offset: 3px;
   transition:            color 0.2s, text-decoration-color 0.2s;
 }
@@ -190,7 +198,7 @@ ul, ol   { list-style: none; }
 }
 .btn svg { width: 18px; height: 18px; flex-shrink: 0; }
 
-.btn--primary         { background: var(--brand); color: #fff; }
+.btn--primary         { background: var(--brand); color: var(--on-brand); }
 .btn--primary:hover   { background: var(--brand-hover); }
 
 .btn--secondary       { border: 1px solid var(--line-2); color: var(--text); background: var(--bg); }

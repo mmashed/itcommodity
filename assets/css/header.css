@@ -7,11 +7,12 @@
   inset:         0 0 auto;
   z-index:       500;
   height:        var(--header-h);
-  background:    rgba(255, 255, 255, 0.96);
+  background:    var(--header-bg);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
   transition:    box-shadow 0.2s;
 }
-.site-header.is-scrolled { box-shadow: 0 1px 12px rgba(16, 20, 25, 0.06); }
+.site-header.is-scrolled { box-shadow: 0 1px 12px rgba(0, 0, 0, 0.35); }
 
 .site-header__inner {
   height:      100%;
