@@ -4,21 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DevOps-команда — IT Commodity</title>
-  <meta name="description" content="Собственная DevOps-команда без субподряда: CI/CD, Kubernetes, инфраструктура как код, мониторинг и логирование. Берём инфраструктуру под ключ от брифинга до поддержки." />
-  <meta name="theme-color" content="#08090b" />
+  <meta name="description" content="Собственная DevOps-команда без субподряда: CI/CD, Kubernetes, инфраструктура как код, мониторинг и логирование. Работаем от аудита до поддержки." />
+  <meta name="theme-color" content="#ffffff" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="ru_RU" />
   <meta property="og:site_name" content="IT Commodity" />
   <meta property="og:title" content="DevOps-команда — IT Commodity" />
-  <meta property="og:description" content="Собственная DevOps-команда без субподряда: CI/CD, Kubernetes, инфраструктура как код, мониторинг и логирование. Берём инфраструктуру под ключ от брифинга до поддержки." />
+  <meta property="og:description" content="Собственная DevOps-команда без субподряда: CI/CD, Kubernetes, инфраструктура как код, мониторинг и логирование. Работаем от аудита до поддержки." />
 
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" type="image/x-icon" />
   <link rel="icon" href="/favicon.png" sizes="120x120" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-  <link rel="preload" href="/assets/fonts/Oswald-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/assets/fonts/Geologica-Light.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/assets/img/devops-hero.webp" as="image" fetchpriority="high" />
+  <link rel="preload" href="/assets/fonts/GolosText-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/base.css" />
   <link rel="stylesheet" href="/assets/css/header.css" />
   <link rel="stylesheet" href="/assets/css/footer.css" />
@@ -32,8 +30,8 @@
   <header class="site-header">
     <div class="container site-header__inner">
       <a href="/" class="logo" aria-label="IT Commodity — на главную">
-        <img src="/assets/img/logo.webp" alt="" width="40" height="40" />
-        <span>IT COMMODITY</span>
+        <img src="/assets/img/logo.webp" alt="" width="36" height="36" />
+        <span>IT Commodity</span>
       </a>
 
       <nav class="nav" aria-label="Основное меню">
@@ -50,184 +48,143 @@
         <span></span><span></span><span></span>
       </button>
     </div>
-    <div class="scroll-progress" aria-hidden="true"></div>
   </header>
 
   <div class="mobile-nav" id="mobile-nav">
     <nav class="mobile-nav__links" aria-label="Мобильное меню">
-      <a href="/hardware">Оборудование <span class="mono">01</span></a>
-      <a href="/devops" aria-current="page">DevOps <span class="mono">02</span></a>
-      <a href="/software">ПО <span class="mono">03</span></a>
-      <a href="/contacts">Контакты <span class="mono">04</span></a>
+      <a href="/hardware">Оборудование</a>
+      <a href="/devops" aria-current="page">DevOps</a>
+      <a href="/software">ПО</a>
+      <a href="/contacts">Контакты</a>
     </nav>
     <div class="mobile-nav__contacts">
       <a href="tel:+79111361561">+7 (911) 136-15-61</a>
-      <a class="btn btn--primary" href="#contact">Оставить заявку <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn--primary" href="#contact">Оставить заявку</a>
     </div>
   </div>
 
   <main id="main">
 
-    <section class="page-hero ">
-      <div class="page-hero__bg" aria-hidden="true"></div>
+    <section class="page-head">
       <div class="container">
-        <ol class="breadcrumb fade-up" style="--i:0" aria-label="Хлебные крошки">
+        <ol class="breadcrumb" aria-label="Хлебные крошки">
           <li><a href="/">Главная</a></li>
           <li aria-current="page">DevOps</li>
         </ol>
-      <h1 class="h1">
-        <span class="line-mask"><span style="--i:0">DevOps-</span></span>
-        <span class="line-mask"><span style="--i:1"><em>команда</em></span></span>
-      </h1>
-        <p class="lead fade-up" style="--i:2">Своя команда на зарплате — без субподряда и посредников. CI/CD, Kubernetes, IaC, мониторинг. Берём инфраструктуру под ключ от брифинга до поддержки.</p>
-        <div class="hero-actions fade-up" style="--i:3">
-          <a href="#contact" class="btn btn--primary">Обсудить задачу <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a href="#process" class="btn btn--ghost">Как мы работаем</a>
+        <h1 class="h1">DevOps-команда</h1>
+        <p class="lead">Инженеры в штате, без субподряда и посредников. Настраиваем CI/CD, Kubernetes, инфраструктуру как код и мониторинг, потом остаёмся на поддержке.</p>
+        <div class="btn-row">
+          <a href="#contact" class="btn btn--primary">Обсудить задачу</a>
+          <a href="#process" class="btn btn--secondary">Как проходит проект</a>
         </div>
       </div>
     </section>
+
+    <div class="banner"><img src="/assets/img/devops-hero.webp" alt="" width="2400" height="1350" /></div>
 
     <section class="section">
       <div class="container">
-        <div class="section-head">
-          <div class="reveal">
-            <p class="eyebrow">Направления</p>
-            <h2 class="h2">Что мы <em>делаем</em></h2>
-          </div>
-          <p class="lead reveal" style="--d:1">Четыре направления, которые закрывают полный цикл DevOps-задач корпоративного заказчика.</p>
+        <div class="section-intro reveal">
+          <h2 class="h2">Чем занимаемся</h2>
+          <p class="lead">Четыре направления, которые покрывают полный цикл DevOps-задач корпоративного заказчика.</p>
         </div>
-        <div class="svc-grid">
-          <article class="svc spotlight reveal" style="--d:0">
-            <span class="svc__num">01</span>
-            <div class="svc__head">
-              <div class="svc__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v6M18 9a9 9 0 0 1-9 9"/></svg></div>
-              <h3 class="h3">CI/CD</h3>
-            </div>
-            <p>Выстраиваем пайплайны непрерывной интеграции и доставки. Код превращается в работающий продукт без ручного вмешательства: сборка, тестирование, деплой — всё автоматически. Поддержка Blue-Green и Canary-релизов, автоматический откат при падении тестов.</p>
-            <p class="stack-label">Стек</p>
-            <div class="stack"><span class="chip chip--accent">GitLab CI/CD</span> <span class="chip chip--accent">GitHub Actions</span> <span class="chip">Jenkins</span> <span class="chip">TeamCity</span> <span class="chip">Docker</span> <span class="chip">SonarQube</span> <span class="chip">Nexus</span> <span class="chip">Artifactory</span> <span class="chip">Snyk</span></div>
-          </article>
-          <article class="svc spotlight reveal" style="--d:1">
-            <span class="svc__num">02</span>
-            <div class="svc__head">
-              <div class="svc__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></div>
-              <h3 class="h3">Инфраструктура и IaC</h3>
-            </div>
-            <p>Описываем и управляем инфраструктурой как кодом. Любое изменение — через Git, никаких ручных правок на серверах. Дрифт-контроль, автомасштабирование, полная воспроизводимость окружений. Работаем с Yandex Cloud, Selectel и on-premise.</p>
-            <p class="stack-label">Стек</p>
-            <div class="stack"><span class="chip chip--accent">Terraform</span> <span class="chip chip--accent">Ansible</span> <span class="chip">Chef</span> <span class="chip">Puppet</span> <span class="chip">Checkov</span> <span class="chip">Terrascan</span> <span class="chip">Molecule</span></div>
-          </article>
-          <article class="svc spotlight reveal" style="--d:0">
-            <span class="svc__num">03</span>
-            <div class="svc__head">
-              <div class="svc__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg></div>
-              <h3 class="h3">Контейнеризация и K8s</h3>
-            </div>
-            <p>Контейнеризируем приложения, разворачиваем и обслуживаем Kubernetes-кластеры. Настраиваем HPA и Cluster Autoscaler, изолируем окружения через Namespaces, выстраиваем GitOps через ArgoCD. Управление конфигурациями через Helm.</p>
-            <p class="stack-label">Стек</p>
-            <div class="stack"><span class="chip chip--accent">Kubernetes</span> <span class="chip chip--accent">Helm</span> <span class="chip chip--accent">Docker</span> <span class="chip">ArgoCD</span> <span class="chip">Flux</span> <span class="chip">Kustomize</span> <span class="chip">Istio</span> <span class="chip">Ingress Nginx</span> <span class="chip">Containerd</span></div>
-          </article>
-          <article class="svc spotlight reveal" style="--d:1">
-            <span class="svc__num">04</span>
-            <div class="svc__head">
-              <div class="svc__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-              <h3 class="h3">Мониторинг и логирование</h3>
-            </div>
-            <p>Настраиваем полный observability-стек: метрики, логи, трейсинг. Дашборды в Grafana, алерты в Telegram или PagerDuty, трейсинг запросов через все микросервисы. Считаем SLA/SLO/SLI и предоставляем отчёты по доступности.</p>
-            <p class="stack-label">Стек</p>
-            <div class="stack"><span class="chip chip--accent">Prometheus</span> <span class="chip chip--accent">Grafana</span> <span class="chip">Zabbix</span> <span class="chip">ELK Stack</span> <span class="chip">Loki</span> <span class="chip">Jaeger</span> <span class="chip">Alertmanager</span> <span class="chip">Filebeat</span> <span class="chip">Vector</span></div>
-          </article>
+        <div class="services">
+          <div class="service reveal">
+            <h3 class="h3">CI/CD</h3>
+            <p>Пайплайны сборки, тестирования и деплоя без ручных шагов. Blue-Green и Canary-релизы, автоматический откат, если тесты упали.</p>
+            <p class="stack"><b>Инструменты:</b> GitLab CI/CD, GitHub Actions, Jenkins, TeamCity, Docker, SonarQube, Nexus, Artifactory, Snyk</p>
+          </div>
+          <div class="service reveal">
+            <h3 class="h3">Инфраструктура как код</h3>
+            <p>Все изменения инфраструктуры проходят через Git, без ручных правок на серверах. Контроль дрифта, автомасштабирование, воспроизводимые окружения. Yandex Cloud, Selectel и on-premise.</p>
+            <p class="stack"><b>Инструменты:</b> Terraform, Ansible, Chef, Puppet, Checkov, Terrascan, Molecule</p>
+          </div>
+          <div class="service reveal">
+            <h3 class="h3">Контейнеры и Kubernetes</h3>
+            <p>Переносим приложения в контейнеры, разворачиваем и обслуживаем кластеры Kubernetes. HPA и Cluster Autoscaler, изоляция окружений, GitOps через ArgoCD, конфигурации в Helm.</p>
+            <p class="stack"><b>Инструменты:</b> Kubernetes, Helm, Docker, ArgoCD, Flux, Kustomize, Istio, Ingress Nginx, containerd</p>
+          </div>
+          <div class="service reveal">
+            <h3 class="h3">Мониторинг и логирование</h3>
+            <p>Метрики, логи и трейсинг в одной системе. Дашборды в Grafana, алерты в Telegram или PagerDuty. Считаем SLA, SLO и SLI, готовим отчёты по доступности.</p>
+            <p class="stack"><b>Инструменты:</b> Prometheus, Grafana, Zabbix, ELK, Loki, Jaeger, Alertmanager, Filebeat, Vector</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section section--alt" id="process">
+    <section class="section section--gray" id="process">
       <div class="container">
-        <div class="section-head">
-          <div class="reveal">
-            <p class="eyebrow">Процесс</p>
-            <h2 class="h2">Как мы <em>работаем</em></h2>
-          </div>
-          <p class="lead reveal" style="--d:1">Фиксированный процесс на каждом проекте. Заказчик знает, что происходит на каждом этапе.</p>
+        <div class="section-intro reveal">
+          <h2 class="h2">Как проходит проект</h2>
+          <p class="lead">Порядок работы одинаковый для всех проектов, поэтому на каждом этапе понятно, что происходит.</p>
         </div>
-        <div class="steps" data-observe>
-          <div class="steps__progress" aria-hidden="true"></div>
-          <div class="step reveal" style="--d:0">
-            <div class="step__num">01</div>
+        <ol class="process">
+          <li class="reveal">
             <h3 class="h3">Брифинг</h3>
-            <p>Разбираемся в задаче: стек, масштаб, требования к доступности, текущее состояние инфраструктуры. Фиксируем цели и ограничения.</p>
-          </div>
-          <div class="step reveal" style="--d:1">
-            <div class="step__num">02</div>
+            <p>Разбираемся в задаче: стек, масштаб, требования к доступности, текущая инфраструктура. Фиксируем цели и ограничения.</p>
+          </li>
+          <li class="reveal">
             <h3 class="h3">Аудит</h3>
-            <p>Смотрим, что есть сейчас: пайплайны, инфраструктура, мониторинг. Находим узкие места и готовим план работ с приоритетами.</p>
-          </div>
-          <div class="step reveal" style="--d:2">
-            <div class="step__num">03</div>
+            <p>Изучаем пайплайны, инфраструктуру и мониторинг. Находим узкие места и составляем план работ с приоритетами.</p>
+          </li>
+          <li class="reveal">
             <h3 class="h3">Внедрение</h3>
-            <p>Реализуем согласованный план. Всё через Git, документируем по ходу, не ломаем то, что работает. Поэтапная миграция без простоев.</p>
-          </div>
-          <div class="step reveal" style="--d:3">
-            <div class="step__num">04</div>
+            <p>Выполняем согласованный план. Всё через Git, с документацией. Мигрируем поэтапно, без простоев.</p>
+          </li>
+          <li class="reveal">
             <h3 class="h3">Поддержка</h3>
-            <p>После сдачи остаёмся на проекте: инциденты, обновления, масштабирование. Инфраструктура живёт и развивается вместе с продуктом.</p>
-          </div>
-        </div>
+            <p>После сдачи остаёмся на проекте: инциденты, обновления, масштабирование.</p>
+          </li>
+        </ol>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container why__grid">
+    <section class="section why">
+      <div class="container split">
         <div class="reveal">
-          <p class="eyebrow">Почему мы</p>
-          <h2 class="h2">Своя команда — <em>без</em> посредников</h2>
-          <p class="lead">Все специалисты в штате. Мы не перепродаём субподрядчиков и не добавляем маржу поверх чужой работы. Заказчик работает напрямую с инженерами, которые делают задачу.</p>
-          <a href="#contact" class="btn btn--primary">Обсудить задачу <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <h2 class="h2">Своя команда, без посредников</h2>
+          <p class="lead">Все специалисты в штате. Мы не перепродаём работу субподрядчиков и не добавляем наценку поверх чужих часов. Вы общаетесь напрямую с инженерами, которые делают задачу.</p>
+          <a href="#contact" class="btn btn--primary">Обсудить задачу</a>
         </div>
-        <div class="facts reveal" style="--d:1">
-          <div class="fact"><div class="fact__num">4</div><p>направления DevOps под одной крышей</p></div>
-          <div class="fact"><div class="fact__num"><em>0</em></div><p>субподрядчиков — только штатные инженеры</p></div>
-          <div class="fact"><div class="fact__num">K8s</div><p>оркестрация как основной инструмент, а не опция</p></div>
-          <div class="fact"><div class="fact__num"><em>Git</em></div><p>любое изменение в инфраструктуре — только через код</p></div>
-        </div>
+        <dl class="facts-list reveal">
+          <div><dt>4</dt><dd>направления DevOps в одной команде</dd></div>
+          <div><dt>0</dt><dd>субподрядчиков, только штатные инженеры</dd></div>
+          <div><dt>K8s</dt><dd>основной инструмент оркестрации</dd></div>
+          <div><dt>Git</dt><dd>любые изменения инфраструктуры только через код</dd></div>
+        </dl>
       </div>
     </section>
 
-    <section class="section contact" id="contact">
+    <section class="section section--gray" id="contact">
       <div class="container contact__grid">
         <div class="contact__intro">
-          <div class="reveal">
-            <p class="eyebrow">Заявка</p>
-            <h2 class="h2">Обсудим <em>задачу</em></h2>
-            <p class="lead">Расскажите про инфраструктуру и задачу — разберёмся, чем можем помочь, и предложим подход. Работаем с юрлицами, выставляем счёт.</p>
-          </div>
-          <div class="reveal" style="--d:1">
-          <div class="contact-lines">
-            <a class="contact-line" href="tel:+79111361561"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span><small>Телефон</small><strong>+7 (911) 136-15-61</strong></span></a>
-          </div>
-          <ol class="next-steps">
-            <li>Перезвоним в рабочее время и уточним задачу</li>
-            <li>Подберём решение: конфигурацию, лицензии или план работ</li>
-            <li>Пришлём коммерческое предложение и выставим счёт юрлицу</li>
+          <h2 class="h2">Обсудить задачу</h2>
+          <p class="lead">Расскажите про инфраструктуру и задачу. Разберёмся, чем можем помочь, и предложим подход.</p>
+          <a class="contact-phone" href="tel:+79111361561">+7 (911) 136-15-61</a>
+          <p class="contact-note">Санкт-Петербург и Москва</p>
+          <ol class="steps-list">
+            <li>Перезвоним в рабочее время и уточним задачу.</li>
+            <li>Подберём конфигурацию, лицензии или план работ.</li>
+            <li>Пришлём коммерческое предложение и выставим счёт.</li>
           </ol>
-          </div>
         </div>
-        <form class="form-card reveal" style="--d:1" data-contact data-phone="+7 (911) 136-15-61" data-tel="+79111361561">
+        <form class="form-card" data-contact data-phone="+7 (911) 136-15-61" data-tel="+79111361561">
           <div class="form-row">
             <div class="form-group">
               <label class="form-label" for="name">Имя <span class="req" aria-hidden="true">*</span></label>
-              <input class="form-input" type="text" id="name" name="name" autocomplete="name" placeholder="Иван Иванов" required aria-describedby="name-error" />
+              <input class="form-input" type="text" id="name" name="name" autocomplete="name" required aria-describedby="name-error" />
               <p class="form-error" id="name-error" aria-live="polite"></p>
             </div>
             <div class="form-group">
               <label class="form-label" for="phone">Телефон <span class="req" aria-hidden="true">*</span></label>
-              <input class="form-input" type="tel" id="phone" name="phone" inputmode="tel" autocomplete="tel" placeholder="+7 (900) 000-00-00" required aria-describedby="phone-error" />
+              <input class="form-input" type="tel" id="phone" name="phone" inputmode="tel" autocomplete="tel" placeholder="+7" required aria-describedby="phone-error" />
               <p class="form-error" id="phone-error" aria-live="polite"></p>
             </div>
           </div>
           <div class="form-group">
             <label class="form-label" for="company">Компания</label>
-            <input class="form-input" type="text" id="company" name="company" autocomplete="organization" placeholder="Название организации" />
+            <input class="form-input" type="text" id="company" name="company" autocomplete="organization" />
           </div>
           <div class="form-group">
             <label class="form-label" for="comment">Комментарий</label>
@@ -249,12 +206,11 @@
       <div class="site-footer__grid">
         <div class="site-footer__brand">
           <a href="/" class="logo" aria-label="IT Commodity — на главную">
-            <img src="/assets/img/logo.webp" alt="" width="40" height="40" loading="lazy" />
-            <span>IT COMMODITY</span>
+            <img src="/assets/img/logo.webp" alt="" width="36" height="36" loading="lazy" />
+            <span>IT Commodity</span>
           </a>
-          <p>Российское серверное оборудование, DevOps-команда и лицензионное ПО для корпоративных заказчиков и госструктур.</p>
+          <p>Серверное оборудование, DevOps и лицензионное ПО для компаний и госструктур. Представительства в Санкт-Петербурге и Москве.</p>
         </div>
-
         <div>
           <p class="site-footer__title">Направления</p>
           <ul class="site-footer__list">
@@ -263,7 +219,6 @@
             <li><a href="/software">Лицензионное ПО</a></li>
           </ul>
         </div>
-
         <div>
           <p class="site-footer__title">Компания</p>
           <ul class="site-footer__list">
@@ -271,22 +226,19 @@
             <li><a href="/privacy">Политика конфиденциальности</a></li>
           </ul>
         </div>
-
         <div>
           <p class="site-footer__title">Связаться</p>
           <ul class="site-footer__list">
-            <li><a class="mono" href="tel:+79111361561">+7 (911) 136-15-61</a></li>
+            <li><a class="site-footer__phone" href="tel:+79111361561">+7 (911) 136-15-61</a></li>
             <li><a href="/contacts#contact">Оставить заявку</a></li>
           </ul>
         </div>
       </div>
-
       <div class="site-footer__bottom">
         <span>© 2026 IT Commodity</span>
         <a href="/privacy">Политика обработки персональных данных</a>
       </div>
     </div>
-    <div class="site-footer__wordmark" aria-hidden="true">IT COMMODITY</div>
   </footer>
 
   <script src="/assets/js/site.js" defer></script>

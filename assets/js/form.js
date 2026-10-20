@@ -210,7 +210,7 @@
         .then(function () {
           setButtonState(btn, 'success');
           status.className = 'form-status success';
-          status.textContent = 'Спасибо! Заявка у нас — перезвоним в рабочее время.';
+          status.textContent = 'Спасибо, заявка отправлена. Перезвоним в рабочее время.';
           form.reset();
           setTimeout(function () { setButtonState(btn, 'idle'); }, 5000);
         })
