@@ -1,215 +1,229 @@
 /**
  * form.js
- * Обработка формы заявки.
+ * Формы заявки: маска телефона, проверка полей с ошибками
+ * рядом с полем, отправка в Web3Forms.
  *
- * Место под web3-приёмщик помечено комментарием WEB3_ENDPOINT.
- * Когда будешь подключать — заменяешь функцию sendToApi(data)
- * и убираешь заглушку.
+ * Разметка: <form data-contact data-phone="+7 (…)" data-tel="+7…">
  */
 
 (function () {
   'use strict';
 
   /* ----------------------------------------------------------
-     WEB3_ENDPOINT
-     Сюда вставляешь свой приёмщик.
-     Функция должна вернуть Promise.
-     data = { name, phone, comment, page }
-
-     Пример для webhook (например, n8n / make / tg-bot):
-
-     function sendToApi(data) {
-       return fetch('https://YOUR_ENDPOINT_URL', {
-         method:  'POST',
-         headers: { 'Content-Type': 'application/json' },
-         body:    JSON.stringify(data)
-       }).then(function (res) {
-         if (!res.ok) throw new Error('HTTP ' + res.status);
-         return res.json();
-       });
-     }
-
+     Отправка (Web3Forms). Чтобы сменить приёмщик, достаточно
+     заменить эту функцию — она должна вернуть Promise.
      ---------------------------------------------------------- */
   function sendToApi(data) {
     return fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({
         access_key: 'fbdafc8c-0790-48d3-a648-21c85f354bbc',
-        name:    data.name,
-        phone:   data.phone,
-        message: data.comment,
-        subject: 'Заявка с сайта: ' + data.page
+        subject:    'Заявка с сайта: ' + (data.topic || data.page),
+        name:       data.name,
+        phone:      data.phone,
+        company:    data.company,
+        topic:      data.topic,
+        message:    data.comment,
+        page:       data.page
       })
     }).then(function (res) {
       if (!res.ok) throw new Error('HTTP ' + res.status);
       return res.json();
     });
   }
-  /* ----------------------------------------------------------
-     конец WEB3_ENDPOINT
-     ---------------------------------------------------------- */
-
 
   /* ----------------------------------------------------------
-     Сбор данных из формы
+     Маска телефона +7 (XXX) XXX-XX-XX
+     Работает на событии input, поэтому корректна с экранными
+     клавиатурами Android, вставкой и автозаполнением.
      ---------------------------------------------------------- */
-  function collectData(form) {
-    return {
-      name:    (form.querySelector('[name="name"]')    || {}).value || '',
-      phone:   (form.querySelector('[name="phone"]')   || {}).value || '',
-      comment: (form.querySelector('[name="comment"]') || {}).value || '',
-      page:    window.location.pathname
-    };
+  function nationalDigits(value) {
+    var trimmed = value.trim();
+    var d = value.replace(/\D/g, '');
+    if (trimmed.indexOf('+7') === 0) d = d.slice(1);
+    // вставили «8 916 …» или «+7 916 …» поверх «+7 »
+    if (d.length > 10 && (d[0] === '7' || d[0] === '8')) d = d.slice(1);
+    // первая набранная цифра 7 или 8 — это код страны
+    if (trimmed.length === 1 && (d === '7' || d === '8')) d = '';
+    return d.slice(0, 10);
   }
 
-  /* ----------------------------------------------------------
-     UI-утилиты
-     ---------------------------------------------------------- */
-  function setStatus(statusEl, type, text) {
-    if (!statusEl) return;
-    statusEl.className = 'form-status ' + type;
-    statusEl.textContent = text;
+  function formatPhone(d) {
+    var s = '+7 ';
+    if (!d.length) return s;
+    s += '(' + d.slice(0, 3);
+    if (d.length >= 3) s += ')';
+    if (d.length > 3)  s += ' ' + d.slice(3, 6);
+    if (d.length > 6)  s += '-' + d.slice(6, 8);
+    if (d.length > 8)  s += '-' + d.slice(8, 10);
+    return s;
   }
 
-  function setButtonState(btn, state) {
-    if (!btn) return;
-    btn.dataset.state = state;
-    btn.disabled = (state === 'loading');
-
-    var labels = {
-      idle:    'Отправить заявку',
-      loading: 'Отправляем...',
-      success: 'Заявка отправлена',
-      error:   'Попробовать снова'
-    };
-    btn.textContent = labels[state] || labels.idle;
-  }
-
-  /* ----------------------------------------------------------
-     Маска телефона +7 (___) ___-__-__
-     ---------------------------------------------------------- */
-  var PHONE_MASK   = '+7 (___) ___-__-__';
-  var DIGIT_SLOTS  = [4, 5, 6, 9, 10, 11, 13, 14, 16, 17];
-
-  function buildMasked(digits) {
-    var chars = PHONE_MASK.split('');
-    for (var i = 0; i < digits.length; i++) {
-      chars[DIGIT_SLOTS[i]] = digits[i];
+  // позиция каретки сразу после n-й цифры номера
+  function caretAfterDigit(formatted, n) {
+    if (n <= 0) return Math.min(formatted.length, 4);
+    var seen = 0;
+    for (var i = 3; i < formatted.length; i++) {
+      if (/\d/.test(formatted[i]) && ++seen === n) return i + 1;
     }
-    return chars.join('');
+    return formatted.length;
   }
 
-  function getDigits(val) {
-    var d = '';
-    for (var i = 0; i < DIGIT_SLOTS.length; i++) {
-      var ch = (val || '')[DIGIT_SLOTS[i]];
-      if (!ch || ch === '_') break;
-      d += ch;
-    }
-    return d;
+  function digitsBeforeCaret(value, caret) {
+    return nationalDigits(value.slice(0, caret)).length;
   }
 
-  function placeCursor(inp, digits) {
-    var pos = digits.length < DIGIT_SLOTS.length
-      ? DIGIT_SLOTS[digits.length]
-      : PHONE_MASK.length;
-    inp.setSelectionRange(pos, pos);
-  }
+  function initPhoneMask(input) {
+    var prev = '';
 
-  function initPhoneMask(form) {
-    var inp = form.querySelector('[name="phone"]');
-    if (!inp) return;
-
-    inp.addEventListener('focus', function () {
-      if (!inp.value) inp.value = PHONE_MASK;
-      var d = getDigits(inp.value);
-      placeCursor(inp, d);
+    input.addEventListener('focus', function () {
+      if (!input.value) {
+        input.value = '+7 ';
+        prev = '';
+      }
     });
 
-    inp.addEventListener('keydown', function (e) {
-      if (e.key === 'Tab') return;
-      e.preventDefault();
+    input.addEventListener('blur', function () {
+      if (!nationalDigits(input.value).length) input.value = '';
+    });
 
-      var d = getDigits(inp.value || PHONE_MASK);
+    input.addEventListener('input', function (e) {
+      var caret  = input.selectionStart == null ? input.value.length : input.selectionStart;
+      var digits = nationalDigits(input.value);
+      var before = digitsBeforeCaret(input.value, caret);
 
-      if (e.key === 'Backspace') {
-        d = d.slice(0, -1);
-        inp.value = buildMasked(d);
-        inp.setCustomValidity(d.length && d.length < 10 ? 'Введите номер полностью' : '');
-        placeCursor(inp, d);
-        return;
+      // Backspace по скобке/дефису: удаляем цифру перед ними
+      if (e.inputType === 'deleteContentBackward' && digits === prev && before > 0) {
+        digits = digits.slice(0, before - 1) + digits.slice(before);
+        before -= 1;
       }
 
-      if (!/^\d$/.test(e.key) || d.length >= 10) return;
+      input.value = formatPhone(digits);
+      prev = digits;
 
-      d += e.key;
-      inp.value = buildMasked(d);
-      inp.setCustomValidity(d.length < 10 ? 'Введите номер полностью' : '');
-      placeCursor(inp, d);
-    });
-
-    inp.addEventListener('paste', function (e) {
-      e.preventDefault();
-      var raw = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
-      if (raw[0] === '7' || raw[0] === '8') raw = raw.slice(1);
-      var d = raw.slice(0, 10);
-      inp.value = buildMasked(d);
-      inp.setCustomValidity(d.length < 10 ? 'Введите номер полностью' : '');
-      placeCursor(inp, d);
-    });
-
-    inp.addEventListener('blur', function () {
-      var d = getDigits(inp.value || '');
-      if (!d.length) inp.value = '';
+      if (document.activeElement === input) {
+        var pos = caretAfterDigit(input.value, Math.min(before, digits.length));
+        input.setSelectionRange(pos, pos);
+      }
+      if (digits.length === 10) clearError(input);
     });
   }
 
   /* ----------------------------------------------------------
-     Инициализация одной формы
+     Ошибки рядом с полем
+     ---------------------------------------------------------- */
+  function errorEl(input) {
+    return document.getElementById(input.getAttribute('aria-describedby'));
+  }
+
+  function showError(input, text) {
+    input.setAttribute('aria-invalid', 'true');
+    var el = errorEl(input);
+    if (el) { el.textContent = text; el.classList.add('is-shown'); }
+  }
+
+  function clearError(input) {
+    input.removeAttribute('aria-invalid');
+    var el = errorEl(input);
+    if (el) { el.textContent = ''; el.classList.remove('is-shown'); }
+  }
+
+  function validate(form) {
+    var firstBad = null;
+    var name  = form.querySelector('[name="name"]');
+    var phone = form.querySelector('[name="phone"]');
+
+    if (name && name.value.trim().length < 2) {
+      showError(name, 'Укажите, как к вам обращаться');
+      firstBad = firstBad || name;
+    }
+    if (phone && nationalDigits(phone.value).length !== 10) {
+      showError(phone, 'Введите номер полностью: 10 цифр после +7');
+      firstBad = firstBad || phone;
+    }
+    if (firstBad) firstBad.focus();
+    return !firstBad;
+  }
+
+  /* ----------------------------------------------------------
+     Состояния кнопки и статуса
+     ---------------------------------------------------------- */
+  var LABELS = {
+    idle:    'Отправить заявку',
+    loading: 'Отправляем…',
+    success: 'Заявка отправлена',
+    error:   'Попробовать снова'
+  };
+
+  function setButtonState(btn, state) {
+    btn.dataset.state = state;
+    btn.disabled = state === 'loading';
+    btn.querySelector('.btn-label').textContent = LABELS[state];
+  }
+
+  function collectData(form) {
+    function val(name) {
+      var el = form.querySelector('[name="' + name + '"]:not([type="radio"]), [name="' + name + '"]:checked');
+      return el ? el.value.trim() : '';
+    }
+    return {
+      name:    val('name'),
+      phone:   val('phone'),
+      company: val('company'),
+      topic:   val('topic'),
+      comment: val('comment'),
+      page:    document.title
+    };
+  }
+
+  /* ----------------------------------------------------------
+     Инициализация формы
      ---------------------------------------------------------- */
   function initForm(form) {
-    var submitBtn = form.querySelector('.form-submit');
-    var statusEl  = form.querySelector('.form-status');
+    var btn    = form.querySelector('.form-submit');
+    var status = form.querySelector('.form-status');
+    var phone  = form.querySelector('[name="phone"]');
 
-    initPhoneMask(form);
+    form.noValidate = true;
+    if (phone) initPhoneMask(phone);
+
+    form.querySelectorAll('.form-input').forEach(function (input) {
+      input.addEventListener('input', function () {
+        if (input.getAttribute('aria-invalid') && input !== phone) clearError(input);
+      });
+    });
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      if (!validate(form)) return;
 
-      // базовая HTML5-валидация
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
+      // ловушка для ботов
+      var trap = form.querySelector('[name="botcheck"]');
+      if (trap && trap.checked) return;
 
-      var data = collectData(form);
+      setButtonState(btn, 'loading');
+      status.className = 'form-status';
+      status.textContent = '';
 
-      setButtonState(submitBtn, 'loading');
-      setStatus(statusEl, '', '');
-
-      sendToApi(data)
+      sendToApi(collectData(form))
         .then(function () {
-          setButtonState(submitBtn, 'success');
-          setStatus(statusEl, 'success', 'Спасибо! Перезвоним в рабочее время.');
+          setButtonState(btn, 'success');
+          status.className = 'form-status success';
+          status.textContent = 'Спасибо! Заявка у нас — перезвоним в рабочее время.';
           form.reset();
-
-          // через 4 секунды возвращаем кнопку в норму
-          setTimeout(function () {
-            setButtonState(submitBtn, 'idle');
-          }, 4000);
+          setTimeout(function () { setButtonState(btn, 'idle'); }, 5000);
         })
         .catch(function (err) {
           console.error('[form.js]', err);
-          setButtonState(submitBtn, 'error');
-          setStatus(statusEl, 'error', 'Что-то пошло не так. Позвоните нам напрямую.');
+          setButtonState(btn, 'error');
+          status.className = 'form-status error';
+          status.innerHTML = 'Не получилось отправить заявку. Позвоните нам: ' +
+            '<a href="tel:' + form.dataset.tel + '">' + form.dataset.phone + '</a>';
         });
     });
   }
 
-  /* ----------------------------------------------------------
-     Инициализация всех форм на странице
-     ---------------------------------------------------------- */
   function init() {
     document.querySelectorAll('form[data-contact]').forEach(initForm);
   }

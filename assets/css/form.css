@@ -1,181 +1,201 @@
 /* =============================================================
-   FORM — секция контакта + стили полей
-   Используется на всех страницах где есть форма заявки
+   FORM — секция заявки + поля
+   Используется на всех страницах с формой
    ============================================================= */
 
-.contact {
-  padding:   var(--section-py) var(--page-px);
-  background: var(--bg);
-  position:  relative;
-  overflow:  hidden;
-}
-
+.contact { position: relative; overflow: hidden; }
 .contact::before {
-  content:        'СВЯЗАТЬСЯ';
+  content:        '';
   position:       absolute;
-  font-family:    var(--font-display);
-  font-size:      clamp(120px, 18vw, 240px);
-  color:          rgba(255, 255, 255, 0.015);
-  top:            50%;
-  left:           50%;
-  transform:      translate(-50%, -50%);
-  white-space:    nowrap;
+  width:          900px;
+  height:         900px;
+  right:          -300px;
+  top:            -200px;
+  background:     radial-gradient(circle, rgba(0, 200, 255, 0.10), transparent 62%);
   pointer-events: none;
-  letter-spacing: 0.05em;
-  user-select:    none;
 }
 
-.contact-inner {
+.contact__grid {
+  position:              relative;
+  display:               grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap:                   clamp(40px, 6vw, 96px);
+  align-items:           start;
+}
+
+.contact__intro .h2   { margin-bottom: 24px; }
+.contact__intro .lead { margin-bottom: 40px; }
+
+/* быстрые контакты рядом с формой */
+.contact-lines { display: grid; gap: 2px; margin-bottom: 40px; }
+.contact-line {
+  display:     flex;
+  align-items: center;
+  gap:         16px;
+  padding:     18px 20px;
+  background:  var(--surface);
+  transition:  background 0.25s;
+}
+a.contact-line:hover { background: var(--surface-2); }
+.contact-line .icon  { color: var(--accent); }
+.contact-line small  {
+  display:        block;
+  font-size:      12px;
+  color:          var(--text-3);
+  letter-spacing: 0.04em;
+}
+.contact-line strong { font-family: var(--font-mono); font-weight: 500; font-size: 16px; }
+
+/* шаги «что будет дальше» */
+.next-steps { display: grid; gap: 18px; counter-reset: step; }
+.next-steps li {
   display:     grid;
-  grid-template-columns: 1fr 1fr;
-  gap:         100px;
-  align-items: start;
-  position:    relative;
-  z-index:     2;
-}
-
-.contact-title {
-  font-family:    var(--font-display);
-  font-size:      clamp(48px, 6vw, 90px);
-  line-height:    0.95;
-  letter-spacing: 0.02em;
-  margin-bottom:  24px;
-}
-.contact-title span { color: var(--accent); }
-
-.contact-text {
+  grid-template-columns: 40px 1fr;
+  gap:         12px;
   font-size:   15px;
-  color:       rgba(255, 255, 255, 0.4);
-  line-height: 1.75;
-  max-width:   380px;
+  color:       var(--text-2);
+  line-height: 1.55;
+}
+.next-steps li::before {
+  counter-increment: step;
+  content:      counter(step, decimal-leading-zero);
+  font-family:  var(--font-mono);
+  font-size:    13px;
+  color:        var(--accent);
+  padding-top:  2px;
 }
 
 /* ----------------------------------------------------------
-   ПОЛЯ
+   КАРТОЧКА ФОРМЫ
    ---------------------------------------------------------- */
-.form-group {
-  margin-bottom: 20px;
+.form-card {
+  position:   relative;
+  background: linear-gradient(180deg, var(--surface-2), var(--surface));
+  border:     1px solid var(--line);
+  padding:    clamp(24px, 4vw, 48px);
+}
+.form-card::before {
+  content:    '';
+  position:   absolute;
+  top: -1px; left: -1px;
+  width:      80px;
+  height:     2px;
+  background: var(--accent);
 }
 
+.form-row  { display: grid; grid-template-columns: 1fr 1fr; gap: 0 20px; }
+.form-group { margin-bottom: 22px; }
+
 .form-label {
-  display:        block;
-  font-size:      10px;
-  font-weight:    500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color:          rgba(255, 255, 255, 0.35);
-  margin-bottom:  10px;
+  display:       block;
+  font-size:     14px;
+  font-weight:   400;
+  color:         var(--text-2);
+  margin-bottom: 8px;
 }
+.form-label .req { color: var(--accent); }
 
 .form-input {
   width:       100%;
-  background:  var(--gray2);
-  border:      1px solid rgba(255, 255, 255, 0.07);
-  color:       var(--white);
+  min-height:  52px;
+  background:  var(--bg);
+  border:      1px solid var(--line-2);
+  color:       var(--text);
   font-family: var(--font-body);
-  font-size:   15px;
+  font-size:   16px;
   font-weight: 300;
-  padding:     16px 20px;
-  outline:     none;
-  transition:  border-color 0.2s, background 0.2s;
-  -webkit-appearance: none;
+  padding:     14px 16px;
   border-radius: 0;
+  -webkit-appearance: none;
+  transition:  border-color 0.2s, box-shadow 0.2s;
 }
+.form-input::placeholder { color: var(--text-3); }
+.form-input:hover        { border-color: rgba(255, 255, 255, 0.28); }
 .form-input:focus {
+  outline:      none;
   border-color: var(--accent);
-  background:   rgba(0, 200, 255, 0.03);
+  box-shadow:   0 0 0 3px var(--accent-dim);
 }
-.form-input::placeholder { color: rgba(255, 255, 255, 0.2); }
-.form-input:invalid:not(:placeholder-shown) {
-  border-color: rgba(255, 80, 80, 0.5);
+.form-input[aria-invalid="true"] {
+  border-color: var(--danger);
+  box-shadow:   0 0 0 3px rgba(255, 112, 112, 0.12);
 }
+textarea.form-input { resize: vertical; min-height: 120px; line-height: 1.55; }
 
-textarea.form-input {
-  resize:     vertical;
-  min-height: 120px;
+.form-error {
+  display:     none;
+  align-items: center;
+  gap:         6px;
+  margin-top:  8px;
+  font-size:   13px;
+  color:       var(--danger);
 }
+.form-error::before { content: '!'; display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: var(--danger); color: var(--bg); font-size: 11px; font-weight: 700; }
+.form-error.is-shown { display: flex; }
+
+/* выбор темы обращения */
+.topic-chips { display: flex; flex-wrap: wrap; gap: 8px; border: 0; }
+.topic-chips legend { margin-bottom: 10px; }
+.topic-chips input  { position: absolute; opacity: 0; pointer-events: none; }
+.topic-chips label {
+  display:     inline-flex;
+  align-items: center;
+  min-height:  44px;
+  padding:     0 16px;
+  border:      1px solid var(--line-2);
+  font-size:   14px;
+  color:       var(--text-2);
+  cursor:      pointer;
+  transition:  border-color 0.2s, color 0.2s, background 0.2s;
+}
+.topic-chips label:hover          { border-color: rgba(255, 255, 255, 0.3); color: var(--text); }
+.topic-chips input:checked + label { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+.topic-chips input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* ----------------------------------------------------------
-   КНОПКА ОТПРАВКИ
+   ОТПРАВКА
    ---------------------------------------------------------- */
-.form-submit {
-  margin-top:     8px;
-  width:          100%;
-  background:     var(--accent);
-  color:          var(--bg);
-  font-family:    var(--font-body);
-  font-size:      13px;
-  font-weight:    700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  padding:        18px;
-  border:         none;
-  cursor:         none;
-  transition:     background 0.2s, transform 0.2s, opacity 0.2s;
-  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
-  position: relative;
-}
-.form-submit:hover    { background: var(--accent-hover); transform: translateY(-2px); }
-.form-submit:disabled { opacity: 0.5; transform: none; pointer-events: none; }
-
-@media (hover: none) {
-  .form-submit { cursor: pointer; }
-}
-
-/* состояния кнопки */
-.form-submit[data-state="loading"]::after {
-  content:     '';
-  position:    absolute;
-  right:       20px;
-  top:         50%;
-  transform:   translateY(-50%);
-  width:       14px;
-  height:      14px;
-  border:      2px solid rgba(13, 13, 13, 0.3);
-  border-top-color: var(--bg);
+.form-submit { width: 100%; margin-top: 6px; }
+.form-submit[data-state="loading"] { pointer-events: none; opacity: 0.85; }
+.form-submit[data-state="loading"] .btn-spinner { display: block; }
+.form-submit[data-state="success"] { background: var(--success); }
+.btn-spinner {
+  display:       none;
+  width:         16px;
+  height:        16px;
+  border:        2px solid rgba(3, 19, 27, 0.3);
+  border-top-color: var(--accent-ink);
   border-radius: 50%;
-  animation:   spin 0.7s linear infinite;
+  animation:     spin 0.7s linear infinite;
 }
+@keyframes spin { to { transform: rotate(360deg); } }
 
-@keyframes spin {
-  to { transform: translateY(-50%) rotate(360deg); }
-}
-
-/* ----------------------------------------------------------
-   СТАТУС ПОСЛЕ ОТПРАВКИ
-   ---------------------------------------------------------- */
 .form-status {
   margin-top:  16px;
-  font-size:   13px;
-  line-height: 1.6;
-  min-height:  20px;
-  transition:  opacity 0.3s;
+  font-size:   15px;
+  line-height: 1.55;
 }
-.form-status.success { color: var(--accent); }
-.form-status.error   { color: rgba(255, 80, 80, 0.9); }
+.form-status:empty    { display: none; }
+.form-status.success  { color: var(--success); }
+.form-status.error    { color: var(--danger); }
+.form-status a        { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
 
 .form-note {
-  margin-top:  14px;
-  font-size:   11px;
-  color:       rgba(255, 255, 255, 0.2);
+  margin-top:  18px;
+  font-size:   13px;
+  color:       var(--text-3);
   line-height: 1.6;
 }
+.form-note a { color: var(--text-2); text-decoration: underline; text-underline-offset: 3px; }
+.form-note a:hover { color: var(--accent); }
 
 /* ----------------------------------------------------------
    АДАПТИВ
    ---------------------------------------------------------- */
-@media (max-width: 1024px) {
-  .contact-inner { gap: 60px; }
+@media (max-width: 960px) {
+  .contact__grid { grid-template-columns: minmax(0, 1fr); }
 }
 
-@media (max-width: 768px) {
-  .contact-inner {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .contact::before { display: none; }
-
-  .form-input  { font-size: 16px; /* предотвращает zoom на iOS */ }
-  .form-submit { cursor: pointer; }
+@media (max-width: 560px) {
+  .form-row { grid-template-columns: minmax(0, 1fr); }
 }

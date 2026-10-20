@@ -3,302 +3,356 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Оборудование — IT Commodity</title>
-  <meta name="description" content="Серверы Мультиллект российского производства. Реестр Минпромторга, КИИ-совместимость, поставка под ключ." />
+  <title>Серверное оборудование Мультиллект — IT Commodity</title>
+  <meta name="description" content="Серверы Мультиллект российского производства в реестре Минпромторга: 1U, 2U, 4U на Intel Xeon. Совместимость с КИИ, поставка под ключ, сервисная поддержка до 24×7." />
+  <meta name="theme-color" content="#08090b" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:site_name" content="IT Commodity" />
+  <meta property="og:title" content="Серверное оборудование Мультиллект — IT Commodity" />
+  <meta property="og:description" content="Серверы Мультиллект российского производства в реестре Минпромторга: 1U, 2U, 4U на Intel Xeon. Совместимость с КИИ, поставка под ключ, сервисная поддержка до 24×7." />
 
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" type="image/x-icon" />
   <link rel="icon" href="/favicon.png" sizes="120x120" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
+  <link rel="preload" href="/assets/fonts/Oswald-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/Geologica-Light.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/img/hardware-hero.webp" as="image" fetchpriority="high" />
   <link rel="stylesheet" href="/assets/css/base.css" />
   <link rel="stylesheet" href="/assets/css/header.css" />
   <link rel="stylesheet" href="/assets/css/footer.css" />
   <link rel="stylesheet" href="/assets/css/form.css" />
   <link rel="stylesheet" href="/assets/css/hardware.css" />
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
 
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursor-ring"></div>
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a href="/" class="logo" aria-label="IT Commodity — на главную">
+        <img src="/assets/img/logo.webp" alt="" width="40" height="40" />
+        <span>IT COMMODITY</span>
+      </a>
 
-  <div id="header-placeholder"></div>
+      <nav class="nav" aria-label="Основное меню">
+        <a href="/hardware" aria-current="page">Оборудование</a>
+        <a href="/devops">DevOps</a>
+        <a href="/software">ПО</a>
+        <a href="/contacts">Контакты</a>
+      </nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-grid"></div>
-    <div class="hero-content">
-      <p class="breadcrumb">
-        <a href="/">Главная</a>
-        <span>/</span>
-        Оборудование
-      </p>
-      <h1 class="hero-title">СЕРВЕРНОЕ<br /><em>ОБОРУДОВАНИЕ</em></h1>
-      <p class="hero-sub">
-        Серверы Мультиллект российского производства. Внесены в реестр Минпромторга, совместимы с объектами КИИ. Производство в Калуге, поставка под ключ.
-      </p>
-    </div>
-  </section>
+      <a class="header-phone" href="tel:+70000000000"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+7 (000) 000-00-00</a>
+      <a class="btn btn--primary header-cta" href="#contact">Оставить заявку</a>
 
-  <!-- МПТ STRIP -->
-  <div class="mpt-strip">
-    <div class="mpt-strip-item">
-      <div class="mpt-dot"></div>
-      <p class="mpt-strip-text"><strong>Реестр Минпромторга РФ</strong> · № 10726806</p>
+      <button class="burger" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Открыть меню">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-    <div class="mpt-strip-divider"></div>
-    <div class="mpt-strip-item">
-      <div class="mpt-dot"></div>
-      <p class="mpt-strip-text"><strong>Производство Калуга</strong> · 70 000 м² · 4 линии сборки</p>
-    </div>
-    <div class="mpt-strip-divider"></div>
-    <div class="mpt-strip-item">
-      <div class="mpt-dot"></div>
-      <p class="mpt-strip-text"><strong>КИИ-совместимость</strong> · ПАК для критической инфраструктуры</p>
-    </div>
-    <div class="mpt-strip-divider"></div>
-    <div class="mpt-strip-item">
-      <div class="mpt-dot"></div>
-      <p class="mpt-strip-text"><strong>Платформа x86</strong> · Intel Xeon 4/5 Gen · Lanqi Jinju Q</p>
+    <div class="scroll-progress" aria-hidden="true"></div>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav">
+    <nav class="mobile-nav__links" aria-label="Мобильное меню">
+      <a href="/hardware" aria-current="page">Оборудование <span class="mono">01</span></a>
+      <a href="/devops">DevOps <span class="mono">02</span></a>
+      <a href="/software">ПО <span class="mono">03</span></a>
+      <a href="/contacts">Контакты <span class="mono">04</span></a>
+    </nav>
+    <div class="mobile-nav__contacts">
+      <a href="tel:+70000000000">+7 (000) 000-00-00</a>
+      <a href="mailto:info@example.ru">info@example.ru</a>
+      <a class="btn btn--primary" href="#contact">Оставить заявку <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </div>
 
-  <!-- CATALOG -->
-  <section class="catalog">
-    <div class="catalog-header reveal">
-      <div>
-        <p class="section-label">Продуктовая линейка</p>
-        <h2 class="catalog-title">КАТАЛОГ<br />СЕРВЕРОВ</h2>
+  <main id="main">
+
+    <section class="page-hero ">
+      <div class="page-hero__bg" aria-hidden="true"></div>
+      <div class="container">
+        <ol class="breadcrumb fade-up" style="--i:0" aria-label="Хлебные крошки">
+          <li><a href="/">Главная</a></li>
+          <li aria-current="page">Оборудование</li>
+        </ol>
+      <h1 class="h1">
+        <span class="line-mask"><span style="--i:0">Серверное</span></span>
+        <span class="line-mask"><span style="--i:1"><em>оборудование</em></span></span>
+      </h1>
+        <p class="lead fade-up" style="--i:2">Серверы Мультиллект российского производства. Внесены в реестр Минпромторга, совместимы с объектами КИИ. Производство в Калуге, поставка под ключ.</p>
+        <div class="hero-actions fade-up" style="--i:3">
+          <a href="#contact" class="btn btn--primary">Запросить КП <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="#support" class="btn btn--ghost">Тарифы поддержки</a>
+        </div>
       </div>
-      <p class="catalog-desc">Серверы Мультиллект для задач дата-центров и корпоративной инфраструктуры. Реестр МПТ, совместимость с КИИ.</p>
+    </section>
+
+    <div class="facts-strip">
+      <div class="container facts-strip__grid">
+          <div class="facts-strip__item"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.5 13 17 22l-5-3-5 3 1.5-9"/></svg><div><strong>Реестр Минпромторга РФ</strong><span>№ 10726806</span></div></div>
+          <div class="facts-strip__item"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20V9l6 4V9l6 4V4h8v16H2z"/><path d="M17 16h1M12 16h1M7 16h1"/></svg><div><strong>Производство в Калуге</strong><span>70 000 м² · 4 линии сборки</span></div></div>
+          <div class="facts-strip__item"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><div><strong>Совместимость с КИИ</strong><span>ПАК для критической инфраструктуры</span></div></div>
+          <div class="facts-strip__item"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg><div><strong>Платформа x86</strong><span>Intel Xeon 4/5 Gen · Lanqi Jinju Q</span></div></div>
+      </div>
     </div>
 
-    <div class="product-group reveal">
-      <p class="product-group-label">Серверы</p>
-      <div class="product-cards">
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div class="reveal">
+            <p class="eyebrow">Продуктовая линейка</p>
+            <h2 class="h2">Каталог <em>серверов</em></h2>
+          </div>
+          <p class="lead reveal" style="--d:1">Серверы Мультиллект для задач дата-центров и корпоративной инфраструктуры. Реестр МПТ, совместимость с КИИ.</p>
+        </div>
+        <div class="products">
+          <article class="product spotlight reveal product--featured">
+            <div class="product__media">
+              <span class="chip">Линейка 2025</span>
+              <img src="/assets/img/server-2u45.webp" alt="Сервер МЛТ-С 2U 4/5 Gen" loading="lazy" width="487" height="102" />
+            </div>
+            <div class="product__body">
+              <p class="product__code">МЛТ-С · 4/5 Gen · Реестр МПТ № 10726806</p>
+              <h3 class="h3">Сервер 2U</h3>
+              <p class="product__desc">Мощный универсальный сервер для современных дата-центров. Поддержка двухпроцессорных конфигураций, GPU-ускорителей, гибкие дисковые корзины.</p>
+              <dl class="specs">
+                <div><dt>Процессор</dt><dd>До 2× Intel Xeon 4/5 Gen, до 64 ядер</dd></div>
+                <div><dt>Память</dt><dd>32× DDR5, до 8 ТБ, CXL 1.1</dd></div>
+                <div><dt>Накопители</dt><dd>До 46 шт. (HDD/SSD/NVMe U.2)</dd></div>
+                <div><dt>GPU</dt><dd>До 4× двухслотовых, до 450 Вт</dd></div>
+                <div><dt>PCIe</dt><dd>До 22 слотов (OCP 3.0 ×2, PCIe ×20)</dd></div>
+                <div><dt>Управление</dt><dd>BMC AST2600, IPMI 2.0, Redfish, KVM</dd></div>
+              </dl>
+              <a href="#contact" class="btn btn--primary" data-product="Сервер МЛТ-С 2U 4/5 Gen">Запросить расчёт <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            </div>
+          </article>
+          <article class="product spotlight reveal">
+            <div class="product__media">
+              <span class="chip">Линейка 2026</span>
+              <img src="/assets/img/server-1u5.webp" alt="Сервер МЛТ-С 1U 5 Gen" loading="lazy" width="1200" height="167" />
+            </div>
+            <div class="product__body">
+              <p class="product__code">МЛТ-С · 5 Gen</p>
+              <h3 class="h3">Сервер 1U</h3>
+              <p class="product__desc">Компактный 1U-сервер на базе Intel Xeon 5-го поколения. Оптимален для высокоплотного размещения в дата-центрах с ограниченным стойко-местом.</p>
+              <dl class="specs">
+                <div><dt>Процессор</dt><dd>Intel Xeon 5 Gen</dd></div>
+                <div><dt>Платформа</dt><dd>x86</dd></div>
+                <div><dt>Конфигурация</dt><dd>По запросу</dd></div>
+              </dl>
+              <a href="#contact" class="btn btn--ghost" data-product="Сервер МЛТ-С 1U 5 Gen">Запросить расчёт</a>
+            </div>
+          </article>
+          <article class="product spotlight reveal">
+            <div class="product__media">
+              <span class="chip">Линейка 2026</span>
+              <img src="/assets/img/server-4u5.webp" alt="Сервер МЛТ-С 4U 5 Gen" loading="lazy" width="1200" height="345" />
+            </div>
+            <div class="product__body">
+              <p class="product__code">МЛТ-С · 5 Gen</p>
+              <h3 class="h3">Сервер 4U</h3>
+              <p class="product__desc">Высокоплотный 4U-сервер с расширенными возможностями по количеству накопителей и слотов расширения. Под задачи хранения и вычислений.</p>
+              <dl class="specs">
+                <div><dt>Процессор</dt><dd>Intel Xeon 5 Gen</dd></div>
+                <div><dt>Платформа</dt><dd>x86</dd></div>
+                <div><dt>Конфигурация</dt><dd>По запросу</dd></div>
+              </dl>
+              <a href="#contact" class="btn btn--ghost" data-product="Сервер МЛТ-С 4U 5 Gen">Запросить расчёт</a>
+            </div>
+          </article>
+          <article class="product spotlight reveal">
+            <div class="product__media">
+              <span class="chip">Линейка 2026</span>
+              <img src="/assets/img/server-2u6.webp" alt="Сервер МЛТ-С 2U 6 Gen" loading="lazy" width="1200" height="301" />
+            </div>
+            <div class="product__body">
+              <p class="product__code">МЛТ-С · 6 Gen</p>
+              <h3 class="h3">Сервер 2U · 6 Gen</h3>
+              <p class="product__desc">Следующее поколение флагманского 2U-сервера на базе Intel Xeon 6-го поколения. Повышенная энергоэффективность и производительность на ядро.</p>
+              <dl class="specs">
+                <div><dt>Процессор</dt><dd>Intel Xeon 6 Gen</dd></div>
+                <div><dt>Платформа</dt><dd>x86</dd></div>
+                <div><dt>Конфигурация</dt><dd>По запросу</dd></div>
+              </dl>
+              <a href="#contact" class="btn btn--ghost" data-product="Сервер МЛТ-С 2U 6 Gen">Запросить расчёт</a>
+            </div>
+          </article>
+        </div>
+        <p class="catalog-note reveal">Уточним конфигурацию под вашу задачу, рассчитаем стоимость и сроки поставки — <a href="#contact">оставьте заявку</a>.</p>
+      </div>
+    </section>
 
-        <!-- 2U 4/5Gen -->
-        <div class="product-card reveal reveal-delay-1">
-          <span class="product-card-badge badge-soon">2025</span>
-          <img class="product-card-img" src="/assets/img/server-2u45.jpg" alt="Сервер МЛТ-С 2U 4/5Gen" />
-          <h3 class="product-card-name">Сервер 2U</h3>
-          <p class="product-card-sub">МЛТ-С · 4/5 Gen · Реестр МПТ № 10726806</p>
-          <p class="product-card-desc">Мощный универсальный сервер для современных дата-центров. Поддержка двухпроцессорных конфигураций, GPU-ускорителей, гибкие дисковые корзины.</p>
-          <div class="specs">
-            <div class="spec-row">
-              <span class="spec-key">Процессор</span>
-              <span class="spec-val">До 2× Intel Xeon 4/5 Gen, до 64 ядер</span>
+    <section class="section section--alt" id="support">
+      <div class="container">
+        <div class="section-head">
+          <div class="reveal">
+            <p class="eyebrow">Сервис</p>
+            <h2 class="h2">Техническая <em>поддержка</em></h2>
+          </div>
+          <p class="lead reveal" style="--d:1">Базовая гарантия 1 год, действует через 90 дней после отгрузки. Расширенные пакеты — в составе спецификации оборудования.</p>
+        </div>
+        <div class="plans">
+          <div class="plan reveal" style="--d:0">
+            <p class="plan__tag">Базово</p>
+            <h3 class="h3">Стандартная гарантия</h3>
+            <p class="plan__hours">Включена в поставку</p>
+            <ul class="plan__list">
+              <li>Горячая линия <b class="">9×5</b></li>
+              <li>Портал техподдержки <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></li>
+              <li>Обновления ПО <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></li>
+              <li>Удалённая поддержка <svg class="icon icon--off" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg></li>
+              <li>Замена оборудования <b class="">40 р.д.</b></li>
+              <li>Выезд инженера <svg class="icon icon--off" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg></li>
+            </ul>
+            <a href="#contact" class="btn btn--ghost" data-product="Поддержка «Стандартная гарантия»">Запросить расчёт</a>
+          </div>
+          <div class="plan reveal" style="--d:1">
+            <p class="plan__tag">Пакет</p>
+            <h3 class="h3">Базовый 9×5</h3>
+            <p class="plan__hours">Рабочие дни, 9 часов</p>
+            <ul class="plan__list">
+              <li>Горячая линия <b class="">9×5</b></li>
+              <li>Портал техподдержки <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></li>
+              <li>Обновления ПО <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></li>
+              <li>Удалённая поддержка <b class="">9×5</b></li>
+              <li>Замена оборудования <b class="">5 р.д.</b></li>
+              <li>Выезд инженера <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></li>
+            </ul>
+            <a href="#contact" class="btn btn--ghost" data-product="Поддержка «Базовый 9×5»">Запросить расчёт</a>
+          </div>
+          <div class="plan reveal" style="--d:2">
+            <p class="plan__tag">Пакет</p>
+            <h3 class="h3">Стандарт 9×5</h3>
+            <p class="plan__hours">Рабочие дни, 9 часов</p>
+            <ul class="plan__list">
+              <li>Горячая линия <b class="">9×5</b></li>
+              <li>Портал техподдержки <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></li>
+              <li>Обновления ПО <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></li>
+              <li>Удалённая поддержка <b class="">9×5</b></li>
+              <li>Замена оборудования <b class="hi">NBD</b></li>
+              <li>Выезд инженера <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></li>
+            </ul>
+            <a href="#contact" class="btn btn--ghost" data-product="Поддержка «Стандарт 9×5»">Запросить расчёт</a>
+          </div>
+          <div class="plan plan--featured reveal" style="--d:3">
+            <p class="plan__tag">Максимум</p>
+            <h3 class="h3">Премьер 24×7</h3>
+            <p class="plan__hours">Круглосуточно, без выходных</p>
+            <ul class="plan__list">
+              <li>Горячая линия <b class="hi">24×7</b></li>
+              <li>Портал техподдержки <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></li>
+              <li>Обновления ПО <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></li>
+              <li>Удалённая поддержка <b class="">9×5</b></li>
+              <li>Замена оборудования <b class="hi">4 часа</b></li>
+              <li>Выезд инженера <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></li>
+            </ul>
+            <a href="#contact" class="btn btn--primary" data-product="Поддержка «Премьер 24×7»">Запросить расчёт <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="container contact__grid">
+        <div class="contact__intro">
+          <div class="reveal">
+            <p class="eyebrow">Заявка</p>
+            <h2 class="h2">Запросить <em>КП</em></h2>
+            <p class="lead">Уточним конфигурацию под вашу задачу, рассчитаем стоимость и сроки поставки. Работаем с юрлицами, выставляем счёт.</p>
+          </div>
+          <div class="reveal" style="--d:1">
+          <div class="contact-lines">
+            <a class="contact-line" href="tel:+70000000000"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span><small>Телефон</small><strong>+7 (000) 000-00-00</strong></span></a>
+            <a class="contact-line" href="mailto:info@example.ru"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg><span><small>Почта</small><strong>info@example.ru</strong></span></a>
+            <div class="contact-line"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span><small>Режим работы</small><strong>Пн–Пт, 9:00–18:00 (МСК)</strong></span></div>
+          </div>
+          <ol class="next-steps">
+            <li>Перезвоним в рабочее время и уточним задачу</li>
+            <li>Подберём решение: конфигурацию, лицензии или план работ</li>
+            <li>Пришлём коммерческое предложение и выставим счёт юрлицу</li>
+          </ol>
+          </div>
+        </div>
+        <form class="form-card reveal" style="--d:1" data-contact data-phone="+7 (000) 000-00-00" data-tel="+70000000000">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="name">Имя <span class="req" aria-hidden="true">*</span></label>
+              <input class="form-input" type="text" id="name" name="name" autocomplete="name" placeholder="Иван Иванов" required aria-describedby="name-error" />
+              <p class="form-error" id="name-error" aria-live="polite"></p>
             </div>
-            <div class="spec-row">
-              <span class="spec-key">Память</span>
-              <span class="spec-val">32× DDR5, до 8 ТБ, CXL 1.1</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-key">Накопители</span>
-              <span class="spec-val">До 46 шт. (HDD/SSD/NVMe U.2)</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-key">GPU</span>
-              <span class="spec-val">До 4× двухслотовых, до 450 Вт</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-key">PCIe</span>
-              <span class="spec-val">До 22 слотов (OCP 3.0 ×2, PCIe ×20)</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-key">Управление</span>
-              <span class="spec-val">BMC AST2600, IPMI 2.0, Redfish, KVM</span>
+            <div class="form-group">
+              <label class="form-label" for="phone">Телефон <span class="req" aria-hidden="true">*</span></label>
+              <input class="form-input" type="tel" id="phone" name="phone" inputmode="tel" autocomplete="tel" placeholder="+7 (900) 000-00-00" required aria-describedby="phone-error" />
+              <p class="form-error" id="phone-error" aria-live="polite"></p>
             </div>
           </div>
-          <a href="#contact" class="product-card-cta">Запросить расчёт</a>
-        </div>
-
-        <!-- 1U 5Gen -->
-        <div class="product-card reveal reveal-delay-2">
-          <span class="product-card-badge badge-soon">2026</span>
-          <img class="product-card-img" src="/assets/img/server-1u5.jpg" alt="Сервер МЛТ-С 1U 5Gen" />
-          <h3 class="product-card-name">Сервер 1U</h3>
-          <p class="product-card-sub">МЛТ-С · 5 Gen</p>
-          <p class="product-card-desc">Компактный 1U-сервер на базе Intel Xeon 5-го поколения. Оптимален для высокоплотного размещения в дата-центрах с ограниченным стойко-местом.</p>
-          <div class="specs">
-            <div class="spec-row">
-              <span class="spec-key">Процессор</span>
-              <span class="spec-val">Intel Xeon 5 Gen</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-key">Форм-фактор</span>
-              <span class="spec-val">1U</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-key">Платформа</span>
-              <span class="spec-val">x86</span>
-            </div>
-          </div>
-          <a href="#contact" class="product-card-cta">Запросить расчёт</a>
-        </div>
-
-        <!-- 4U 5Gen -->
-        <div class="product-card reveal reveal-delay-3">
-          <span class="product-card-badge badge-soon">2026</span>
-          <img class="product-card-img" src="/assets/img/server-4u5.jpg" alt="Сервер МЛТ-С 4U 5Gen" />
-          <h3 class="product-card-name">Сервер 4U</h3>
-          <p class="product-card-sub">МЛТ-С · 5 Gen</p>
-          <p class="product-card-desc">Высокоплотный 4U-сервер с расширенными возможностями по количеству накопителей и слотов расширения. Под задачи хранения и вычислений.</p>
-          <div class="specs">
-            <div class="spec-row">
-              <span class="spec-key">Процессор</span>
-              <span class="spec-val">Intel Xeon 5 Gen</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-key">Форм-фактор</span>
-              <span class="spec-val">4U</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-key">Платформа</span>
-              <span class="spec-val">x86</span>
-            </div>
-          </div>
-          <a href="#contact" class="product-card-cta">Запросить расчёт</a>
-        </div>
-
-        <!-- 2U 6Gen -->
-        <div class="product-card reveal reveal-delay-4">
-          <span class="product-card-badge badge-soon">2026</span>
-          <img class="product-card-img" src="/assets/img/server-2u6.jpg" alt="Сервер МЛТ-С 2U 6Gen" />
-          <h3 class="product-card-name">Сервер 2U</h3>
-          <p class="product-card-sub">МЛТ-С · 6 Gen</p>
-          <p class="product-card-desc">Следующее поколение флагманского 2U-сервера на базе Intel Xeon 6-го поколения. Повышенная энергоэффективность и производительность на ядро.</p>
-          <div class="specs">
-            <div class="spec-row">
-              <span class="spec-key">Процессор</span>
-              <span class="spec-val">Intel Xeon 6 Gen</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-key">Форм-фактор</span>
-              <span class="spec-val">2U</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-key">Платформа</span>
-              <span class="spec-val">x86</span>
-            </div>
-          </div>
-          <a href="#contact" class="product-card-cta">Запросить расчёт</a>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- СЕРВИСНАЯ ПОДДЕРЖКА -->
-  <section class="service">
-    <div class="service-header reveal">
-      <div>
-        <p class="section-label">Сервис</p>
-        <h2 class="service-title">ТЕХНИЧЕСКАЯ<br />ПОДДЕРЖКА</h2>
-      </div>
-      <p class="service-desc">Базовая гарантия 1 год, действует через 90 дней после отгрузки. Расширенные пакеты — в составе спецификации оборудования.</p>
-    </div>
-    <div class="service-plans">
-
-      <div class="service-plan reveal reveal-delay-1">
-        <p class="service-plan-tag">Базово</p>
-        <h3 class="service-plan-name">Стандартная гарантия</h3>
-        <p class="service-plan-hours">Включена в поставку</p>
-        <ul class="service-plan-items">
-          <li>Горячая линия <span class="val">9×5</span></li>
-          <li>Портал техподдержки <span class="val accent">✓</span></li>
-          <li>Обновления ПО <span class="val accent">✓</span></li>
-          <li>Удалённая поддержка <span class="val">—</span></li>
-          <li>Замена оборудования <span class="val">40 р.д.</span></li>
-          <li>Выезд инженера <span class="val">—</span></li>
-        </ul>
-        <a href="#contact" class="service-plan-cta">Запросить расчёт</a>
-      </div>
-
-      <div class="service-plan reveal reveal-delay-2">
-        <p class="service-plan-tag">Пакет</p>
-        <h3 class="service-plan-name">Базовый 9×5</h3>
-        <p class="service-plan-hours">Рабочие дни, 9 часов</p>
-        <ul class="service-plan-items">
-          <li>Горячая линия <span class="val">9×5</span></li>
-          <li>Портал техподдержки <span class="val accent">✓</span></li>
-          <li>Обновления ПО <span class="val accent">✓</span></li>
-          <li>Удалённая поддержка <span class="val">9×5</span></li>
-          <li>Замена оборудования <span class="val">5 р.д.</span></li>
-          <li>Выезд инженера <span class="val accent">✓</span></li>
-        </ul>
-        <a href="#contact" class="service-plan-cta">Запросить расчёт</a>
-      </div>
-
-      <div class="service-plan reveal reveal-delay-3">
-        <p class="service-plan-tag">Пакет</p>
-        <h3 class="service-plan-name">Стандарт 9×5</h3>
-        <p class="service-plan-hours">Рабочие дни, 9 часов</p>
-        <ul class="service-plan-items">
-          <li>Горячая линия <span class="val">9×5</span></li>
-          <li>Портал техподдержки <span class="val accent">✓</span></li>
-          <li>Обновления ПО <span class="val accent">✓</span></li>
-          <li>Удалённая поддержка <span class="val">9×5</span></li>
-          <li>Замена оборудования <span class="val accent">NBD</span></li>
-          <li>Выезд инженера <span class="val accent">✓</span></li>
-        </ul>
-        <a href="#contact" class="service-plan-cta">Запросить расчёт</a>
-      </div>
-
-      <div class="service-plan featured reveal reveal-delay-4">
-        <p class="service-plan-tag">Максимум</p>
-        <h3 class="service-plan-name">Премьер 24×7</h3>
-        <p class="service-plan-hours">Круглосуточно, без выходных</p>
-        <ul class="service-plan-items">
-          <li>Горячая линия <span class="val accent">24×7</span></li>
-          <li>Портал техподдержки <span class="val accent">✓</span></li>
-          <li>Обновления ПО <span class="val accent">✓</span></li>
-          <li>Удалённая поддержка <span class="val">9×5</span></li>
-          <li>Замена оборудования <span class="val accent">4 часа</span></li>
-          <li>Выезд инженера <span class="val accent">✓</span></li>
-        </ul>
-        <a href="#contact" class="service-plan-cta">Запросить расчёт</a>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="contact" id="contact">
-    <div class="contact-inner">
-      <div class="reveal">
-        <p class="section-label">Заявка</p>
-        <h2 class="contact-title">ЗАПРОСИТЬ<br /><span>КП</span></h2>
-        <p class="contact-text">Уточним конфигурацию под вашу задачу, рассчитаем стоимость и сроки поставки. Работаем с юрлицами, выставляем счёт.</p>
-      </div>
-      <div class="reveal reveal-delay-2">
-        <form data-contact>
           <div class="form-group">
-            <label class="form-label" for="name">Имя *</label>
-            <input class="form-input" type="text" id="name" name="name" placeholder="Иван Иванов" required />
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="phone">Телефон *</label>
-            <input class="form-input" type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required />
+            <label class="form-label" for="company">Компания</label>
+            <input class="form-input" type="text" id="company" name="company" autocomplete="organization" placeholder="Название организации" />
           </div>
           <div class="form-group">
             <label class="form-label" for="comment">Комментарий</label>
             <textarea class="form-input" id="comment" name="comment" placeholder="Расскажите о задаче, объёме, сроках"></textarea>
           </div>
-          <button type="submit" class="form-submit">Отправить заявку</button>
-          <div class="form-status" role="alert"></div>
-          <p class="form-note">Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных.</p>
+          <input type="checkbox" name="botcheck" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <button type="submit" class="btn btn--primary form-submit">
+            <span class="btn-label">Отправить заявку</span><span class="btn-spinner" aria-hidden="true"></span>
+          </button>
+          <div class="form-status" role="status" aria-live="polite"></div>
+          <p class="form-note">Нажимая кнопку, вы соглашаетесь с <a href="/privacy">политикой обработки персональных данных</a>.</p>
         </form>
       </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div class="site-footer__brand">
+          <a href="/" class="logo" aria-label="IT Commodity — на главную">
+            <img src="/assets/img/logo.webp" alt="" width="40" height="40" loading="lazy" />
+            <span>IT COMMODITY</span>
+          </a>
+          <p>Российское серверное оборудование, DevOps-команда и лицензионное ПО для корпоративных заказчиков и госструктур.</p>
+        </div>
+
+        <div>
+          <p class="site-footer__title">Направления</p>
+          <ul class="site-footer__list">
+            <li><a href="/hardware">Оборудование</a></li>
+            <li><a href="/devops">DevOps-команда</a></li>
+            <li><a href="/software">Лицензионное ПО</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="site-footer__title">Компания</p>
+          <ul class="site-footer__list">
+            <li><a href="/contacts">Контакты и реквизиты</a></li>
+            <li><a href="/privacy">Политика конфиденциальности</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="site-footer__title">Связаться</p>
+          <ul class="site-footer__list">
+            <li><a class="mono" href="tel:+70000000000">+7 (000) 000-00-00</a></li>
+            <li><a class="mono" href="mailto:info@example.ru">info@example.ru</a></li>
+            <li><span>Пн–Пт, 9:00–18:00 (МСК)</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="site-footer__bottom">
+        <span>© 2026 IT Commodity · ООО «Название компании» · ИНН 0000000000</span>
+        <a href="/privacy">Политика обработки персональных данных</a>
+      </div>
     </div>
-  </section>
+    <div class="site-footer__wordmark" aria-hidden="true">IT COMMODITY</div>
+  </footer>
 
-  <div id="footer-placeholder"></div>
-
-  <script src="/assets/js/components.js"></script>
-  <script src="/assets/js/cursor.js"></script>
-  <script src="/assets/js/reveal.js"></script>
-  <script src="/assets/js/form.js"></script>
-
+  <script src="/assets/js/site.js" defer></script>
+  <script src="/assets/js/form.js" defer></script>
 </body>
 </html>

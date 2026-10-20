@@ -2,71 +2,82 @@
    FOOTER
    ============================================================= */
 
-footer {
-  padding:         48px var(--page-px);
-  background:      var(--bg2);
-  border-top:      1px solid rgba(255, 255, 255, 0.05);
-  display:         flex;
-  align-items:     center;
-  justify-content: space-between;
-  gap:             24px;
-  flex-wrap:       wrap;
+.site-footer {
+  background:  var(--bg-2);
+  border-top:  1px solid var(--line);
+  padding-top: clamp(56px, 7vw, 88px);
+  position:    relative;
+  overflow:    hidden;
 }
 
-.footer-logo {
-  display:     flex;
-  align-items: center;
-  gap:         12px;
-  text-decoration: none;
-  flex-shrink: 0;
-}
-.footer-logo img { width: 32px; }
-.footer-logo-text {
-  font-family:    var(--font-display);
-  font-size:      18px;
-  color:          rgba(255, 255, 255, 0.6);
-  letter-spacing: 0.08em;
+.site-footer__grid {
+  display:               grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+  gap:                   48px 40px;
+  padding-bottom:        56px;
 }
 
-.footer-links {
-  display:  flex;
-  gap:      36px;
-  flex-wrap: wrap;
+.site-footer__brand .logo { margin-bottom: 20px; }
+.site-footer__brand p {
+  font-size:   14px;
+  color:       var(--text-3);
+  line-height: 1.7;
+  max-width:   300px;
 }
-.footer-links a {
+
+.site-footer__title {
+  font-family:    var(--font-mono);
   font-size:      12px;
-  font-weight:    400;
+  font-weight:    500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color:          rgba(255, 255, 255, 0.25);
-  text-decoration: none;
-  transition:     color 0.2s;
-  cursor:         none;
-}
-.footer-links a:hover { color: rgba(255, 255, 255, 0.6); }
-
-.footer-copy {
-  font-size: 12px;
-  color:     rgba(255, 255, 255, 0.15);
-  flex-shrink: 0;
+  color:          var(--text-3);
+  margin-bottom:  16px;
 }
 
+.site-footer__list a,
+.site-footer__list span {
+  display:     inline-flex;
+  align-items: center;
+  min-height:  36px;
+  font-size:   15px;
+  color:       var(--text-2);
+  transition:  color 0.2s;
+}
+.site-footer__list a:hover { color: var(--accent); }
+.site-footer__list .mono   { font-size: 14px; }
 
-/* =============================================================
-   АДАПТИВ
-   ============================================================= */
-@media (max-width: 768px) {
-  footer {
-    flex-direction: column;
-    align-items:    flex-start;
-    gap:            28px;
-    padding-top:    40px;
-    padding-bottom: 40px;
-  }
+.site-footer__bottom {
+  display:         flex;
+  flex-wrap:       wrap;
+  justify-content: space-between;
+  gap:             12px 32px;
+  padding-block:   24px;
+  border-top:      1px solid var(--line);
+  font-size:       13px;
+  color:           var(--text-3);
+}
+.site-footer__bottom a:hover { color: var(--accent); }
 
-  .footer-links {
-    gap: 20px;
-  }
+/* огромная подпись на фоне */
+.site-footer__wordmark {
+  font-family:    var(--font-display);
+  font-weight:    700;
+  font-size:      clamp(64px, 15vw, 240px);
+  line-height:    0.8;
+  letter-spacing: 0.01em;
+  white-space:    nowrap;
+  text-align:     center;
+  color:          transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.07);
+  user-select:    none;
+  margin-bottom:  -0.12em;
+}
 
-  .footer-links a { cursor: pointer; }
+@media (max-width: 1024px) {
+  .site-footer__grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 560px) {
+  .site-footer__grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
 }
